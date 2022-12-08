@@ -1,8 +1,11 @@
+import { FormEventHandler } from 'react'
 import styled from 'styled-components'
 
-export const Form = styled.form.attrs({
-  onSubmit: (e) => e.preventDefault()
-})`
+const onSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+  event.preventDefault()
+}
+
+export const Form = styled.form.attrs({ onSubmit })`
   display: flex;
   flex-direction: column;
   gap: 12px;
