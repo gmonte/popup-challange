@@ -29,7 +29,7 @@ export interface Step {
 }
 
 export interface ReducerState {
-  currentStepId: string
+  currentStepId: StepId
   steps: Step[]
   submitted: boolean
 }

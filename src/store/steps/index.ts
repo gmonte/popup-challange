@@ -58,8 +58,23 @@ const initialState: ReducerState = {
   submitted: false
 }
 
+function updateQuestionsByStepIndex(
+  state: ReducerState,
+  stepIndex: number,
+  fieldValues?: FieldValues
+) {
+  const questions = state.steps[stepIndex].questions as AllQuestions
 
-type QuestionId = keyof AllQuestions
+  if (questions && fieldValues) {
+    Object.entries(questions).forEach((item) => {
+      const questionId = item[0] as keyof AllQuestions
+      questions[questionId].answer = fieldValues[questionId]
+    })
+    state.steps[stepIndex].questions = questions
+  }
+
+  return state
+}
 
 export const stepSlice = createSlice({
   name: 'steps',
@@ -68,15 +83,7 @@ export const stepSlice = createSlice({
     next(state, { payload }: PayloadAction<FieldValues>) {
       const currentStepIndex = state.steps.findIndex(step => step.id === state.currentStepId)
 
-      const questions = state.steps[currentStepIndex].questions as AllQuestions
-
-      if (questions) {
-        Object.entries(questions).forEach((item) => {
-          const questionId = item[0] as keyof AllQuestions
-          questions[questionId].answer = payload[questionId]
-        })
-        state.steps[currentStepIndex].questions = questions
-      }
+      state = updateQuestionsByStepIndex(state, currentStepIndex, payload)
 
       const nextStep = state.steps[currentStepIndex + 1]
 
@@ -87,15 +94,7 @@ export const stepSlice = createSlice({
     previous(state, { payload }: PayloadAction<FieldValues | undefined>) {
       const currentStepIndex = state.steps.findIndex(step => step.id === state.currentStepId)
 
-      const questions = state.steps[currentStepIndex].questions as AllQuestions
-
-      if (questions && payload) {
-        Object.entries(questions).forEach((item) => {
-          const questionId = item[0] as keyof AllQuestions
-          questions[questionId].answer = payload[questionId]
-        })
-        state.steps[currentStepIndex].questions = questions
-      }
+      state = updateQuestionsByStepIndex(state, currentStepIndex, payload)
 
       const previousStep = state.steps[currentStepIndex - 1]
 

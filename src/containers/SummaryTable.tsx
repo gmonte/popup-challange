@@ -10,8 +10,12 @@ export function SummaryTable() {
     <List.Root numberOfColumns={ 2 }>
       {Object.entries(allQuestions).map(([questionId, question]) => (
         <Fragment key={questionId}>
-          <List.Item style={{textAlign: 'right'}}>{question.description}:</List.Item>
-          <List.Item style={{fontWeight: 'bold'}}>{question.answer || '-'}</List.Item>
+          <List.Item style={{textAlign: 'right'}}>
+            {question.description}{':'}
+          </List.Item>
+          <List.Item style={{fontWeight: 'bold'}}>
+            {question.answer || '-'}
+          </List.Item>
         </Fragment>
       ))}
     </List.Root>

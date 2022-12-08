@@ -13,7 +13,7 @@ export const store = configureStore({
     const middlewares = getDefaultMiddleware({ serializableCheck: false })
 
     if (devMode) {
-      middlewares.push(createLogger({}))
+      middlewares.push(createLogger())
     }
 
     return middlewares

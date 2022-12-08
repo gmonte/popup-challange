@@ -1,15 +1,10 @@
 import { useCallback, useEffect } from "react"
 import { PopUp } from "./containers/PopUp"
-import { GlobalStyle } from "./globalStyles"
 import { useModal } from "./hooks/useModal"
 import { useAppSelector } from "./store"
 import { selectSubmitted } from "./store/steps/selectors"
 
-type AppProps = {
-  rootDivId: string
-}
-
-function App({ rootDivId }: AppProps) {
+export function App() {
   const { createModal } = useModal()
 
   const submitted = useAppSelector(selectSubmitted)
@@ -40,9 +35,5 @@ function App({ rootDivId }: AppProps) {
     [handleOpenModal, submitted]
   )
 
-  return (
-    <GlobalStyle rootDivId={ rootDivId } />
-  )
+  return null
 }
-
-export default App
