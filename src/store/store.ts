@@ -4,13 +4,15 @@ import { persistStore } from 'redux-persist'
 
 import { reducers } from './reducers'
 
+const devMode = true // import.meta.env.MODE === 'development'
+
 export const store = configureStore({
   reducer: reducers,
-  devTools: true, // import.meta.env.MODE === 'development',
+  devTools: devMode,
   middleware(getDefaultMiddleware) {
     const middlewares = getDefaultMiddleware({ serializableCheck: false })
 
-    if (import.meta.env.MODE === 'development') {
+    if (devMode) {
       middlewares.push(createLogger({}))
     }
 
