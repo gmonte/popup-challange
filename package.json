@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.10",
     "@radix-ui/react-dialog": "^1.0.2",
     "@reduxjs/toolkit": "^1.9.1",
     "clsx": "^1.2.1",
@@ -21,7 +22,8 @@
     "redux-persist": "^6.0.0",
     "short-uuid": "^4.2.2",
     "styled-components": "^5.3.6",
-    "vite-plugin-fonts": "^0.6.0"
+    "vite-plugin-fonts": "^0.6.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "^18.11.11",

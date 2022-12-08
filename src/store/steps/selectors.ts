@@ -1,5 +1,5 @@
 import { RootState } from '../store'
-import { AllQuestions } from './types'
+import { AllQuestions } from '~/@types/Steps'
 
 export const selectSteps = (state: RootState) => state.steps.steps
 
@@ -35,7 +35,7 @@ export const selectIsLastStep = (state: RootState) => {
   return currentStepIndex + 1 === selectStepsSize(state)
 }
 
-export const selectFinished = (state: RootState) => state.steps.finished
+export const selectSubmitted = (state: RootState) => state.steps.submitted
 
 export const selectAllQuestions = (state: RootState) => {
   const steps = selectSteps(state)

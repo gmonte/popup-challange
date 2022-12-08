@@ -1,5 +1,5 @@
 import { FieldValues } from "react-hook-form"
-import { IdentityQuestions, Questions, Question } from "~/store/steps/types"
+import { IdentityQuestions, Questions, Question } from "./Steps"
 
 export type FormRef = {
   getValues: () => FieldValues

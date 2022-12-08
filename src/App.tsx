@@ -3,7 +3,7 @@ import { PopUp } from "./containers/PopUp"
 import { GlobalStyle } from "./globalStyles"
 import { useModal } from "./hooks/useModal"
 import { useAppSelector } from "./store"
-import { selectFinished } from "./store/steps/selectors"
+import { selectSubmitted } from "./store/steps/selectors"
 
 type AppProps = {
   rootDivId: string
@@ -12,7 +12,7 @@ type AppProps = {
 function App({ rootDivId }: AppProps) {
   const { createModal } = useModal()
 
-  const finished = useAppSelector(selectFinished)
+  const submitted = useAppSelector(selectSubmitted)
 
   const handleOpenModal = useCallback(
     () => {
@@ -29,7 +29,7 @@ function App({ rootDivId }: AppProps) {
 
   useEffect(
     () => {
-      if (!finished) {
+      if (!submitted) {
         const timeout = setTimeout(
           handleOpenModal,
           1000 * 2 // 2 seconds
@@ -37,7 +37,7 @@ function App({ rootDivId }: AppProps) {
         return () => clearTimeout(timeout)
       }
     },
-    [handleOpenModal, finished]
+    [handleOpenModal, submitted]
   )
 
   return (

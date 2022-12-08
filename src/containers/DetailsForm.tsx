@@ -1,9 +1,18 @@
 import { forwardRef, useCallback, useImperativeHandle } from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 import { FormRef, FormProps, FormValuesByQuestions } from "~/@types/Form";
 import { useAppSelector } from "~/store";
 import { selectCurrentStep } from "~/store/steps/selectors";
-import { DetailsQuestions } from "~/store/steps/types";
+import { DetailsQuestions } from "~/@types/Steps";
+
+type FormValues = FormValuesByQuestions<DetailsQuestions>
+
+const schema = yup.object().shape<Record<keyof FormValues, yup.AnySchema>>({
+  age: yup.string().required('This field is Required'),
+  gender: yup.string().required('This field is Required')
+})
 
 export const DetailsForm = forwardRef<FormRef, FormProps>(
   ({ onSubmit }, ref) => {
@@ -15,7 +24,9 @@ export const DetailsForm = forwardRef<FormRef, FormProps>(
       getValues,
       handleSubmit,
       formState: { errors }
-    } = useForm<FormValuesByQuestions<DetailsQuestions>>();
+    } = useForm<FormValues>({
+      resolver: yupResolver(schema)
+    })
 
     const submit = useCallback(
       () => handleSubmit(onSubmit)(),

@@ -5,9 +5,9 @@ export const OPEN_MODAL = 'OPEN_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 export const REMOVE_MODAL = 'REMOVE_MODAL';
 
-import { IModal, Action } from './types';
+import { Modal, Action } from './types';
 
-export const modalsReducer: Reducer<IModal[], Action> = (modals, action) => {
+export const modalsReducer: Reducer<Modal[], Action> = (modals, action) => {
   switch (action.type) {
     case CREATE_MODAL:
       return [
@@ -23,7 +23,7 @@ export const modalsReducer: Reducer<IModal[], Action> = (modals, action) => {
           }
           return [...acc, modal]
         },
-        [] as IModal[]
+        [] as Modal[]
       )
     
     case OPEN_MODAL:

@@ -6,7 +6,7 @@ import { Dialog } from '~/components/Dialog'
 import { ModalProps } from '~/hooks/useModal'
 import { useAppDispatch, useAppSelector } from '~/store'
 import { stepsActions } from '~/store/steps'
-import { selectCurrentStep, selectFinished, selectHasNextStep, selectHasPreviousStep, selectIsLastStep } from '~/store/steps/selectors'
+import { selectCurrentStep, selectSubmitted, selectHasNextStep, selectHasPreviousStep, selectIsLastStep } from '~/store/steps/selectors'
 import { DetailsForm } from './DetailsForm'
 import { FavoritesForm } from './FavoritesForm'
 import { IdentityForm } from './IdentityForm'
@@ -21,7 +21,7 @@ export function PopUp ({ open, close }: ModalProps) {
   const hasNextStep = useAppSelector(selectHasNextStep)
   const hasPreviousStep = useAppSelector(selectHasPreviousStep)
   const isLastStep = useAppSelector(selectIsLastStep)
-  const finished = useAppSelector(selectFinished)
+  const submitted = useAppSelector(selectSubmitted)
 
   const handleNext = useCallback(
     (answers: FieldValues) => {
@@ -45,7 +45,7 @@ export function PopUp ({ open, close }: ModalProps) {
   
   const handleSubmit = useCallback(
     () => {
-      dispatch(stepsActions.finish())
+      dispatch(stepsActions.submit())
     },
     []
   )
@@ -79,11 +79,11 @@ export function PopUp ({ open, close }: ModalProps) {
 
   useEffect(
     () => {
-      if (finished) {
+      if (submitted) {
         close()
       }
     },
-    [finished, close]
+    [submitted, close]
   )
 
   return (

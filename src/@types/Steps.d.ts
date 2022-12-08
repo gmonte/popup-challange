@@ -31,5 +31,5 @@ export interface Step {
 export interface State {
   currentStepId: string
   steps: Step[]
-  finished: boolean
+  submitted: boolean
 }

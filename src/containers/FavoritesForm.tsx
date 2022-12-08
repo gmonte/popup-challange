@@ -1,9 +1,18 @@
-import { forwardRef, useCallback, useImperativeHandle } from "react";
-import { useForm } from "react-hook-form";
-import { FormRef, FormProps, FormValuesByQuestions } from "~/@types/Form";
-import { useAppSelector } from "~/store";
-import { selectCurrentStep } from "~/store/steps/selectors";
-import { FavoritesQuestions } from "~/store/steps/types";
+import { forwardRef, useCallback, useImperativeHandle } from "react"
+import { useForm } from "react-hook-form"
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+import { FormRef, FormProps, FormValuesByQuestions } from "~/@types/Form"
+import { useAppSelector } from "~/store"
+import { selectCurrentStep } from "~/store/steps/selectors"
+import { FavoritesQuestions } from "~/@types/Steps"
+
+type FormValues = FormValuesByQuestions<FavoritesQuestions>
+
+const schema = yup.object().shape<Record<keyof FormValues, yup.AnySchema>>({
+  favoriteBook: yup.string().required('This field is Required'),
+  favoriteColor: yup.string().required('This field is Required')
+})
 
 export const FavoritesForm = forwardRef<FormRef, FormProps>(
   ({ onSubmit }, ref) => {
@@ -15,7 +24,9 @@ export const FavoritesForm = forwardRef<FormRef, FormProps>(
       getValues,
       handleSubmit,
       formState: { errors }
-    } = useForm<FormValuesByQuestions<FavoritesQuestions>>();
+    } = useForm<FormValues>({
+      resolver: yupResolver(schema)
+    })
 
     const submit = useCallback(
       () => handleSubmit(onSubmit)(),
@@ -47,6 +58,6 @@ export const FavoritesForm = forwardRef<FormRef, FormProps>(
         />
         {errors.favoriteColor && <span>This field is required</span>}
       </form>
-    );
+    )
   }
 )

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { FieldValues } from 'react-hook-form'
 
-import { AllQuestions, State, Step } from './types'
+import { AllQuestions, State, Step } from '~/@types/Steps'
 
 const initialSteps: Step[] = [
   {
@@ -55,7 +55,7 @@ const initialSteps: Step[] = [
 const initialState: State = {
   steps: initialSteps,
   currentStepId: initialSteps[0].id,
-  finished: false
+  submitted: false
 }
 
 
@@ -103,8 +103,8 @@ export const stepSlice = createSlice({
         state.currentStepId = previousStep.id
       }
     },
-    finish(state) {
-      state.finished = true
+    submit(state) {
+      state.submitted = true
     }
   }
 })

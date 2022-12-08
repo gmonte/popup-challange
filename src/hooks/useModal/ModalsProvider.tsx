@@ -16,14 +16,14 @@ import {
 } from './modalsReducer'
 import {
   IUseModal,
-  ICreateModal,
-  IRemoveModal
+  CreateModal,
+  RemoveModal
 } from './types'
 
 export function ModalsProvider ({ children }: PropsWithChildren) {
   const [modals, dispatch] = useReducer(modalsReducer, [])
 
-  const createModal = useCallback<ICreateModal>(
+  const createModal = useCallback<CreateModal>(
     (modal) => {
       dispatch({
         type: CREATE_MODAL,
@@ -39,7 +39,7 @@ export function ModalsProvider ({ children }: PropsWithChildren) {
     []
   )
 
-  const removeModal = useCallback<IRemoveModal>(
+  const removeModal = useCallback<RemoveModal>(
     (modal) => {
       dispatch({
         type: CLOSE_MODAL,

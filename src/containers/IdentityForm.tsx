@@ -1,9 +1,20 @@
-import { forwardRef, useCallback, useImperativeHandle } from "react";
-import { useForm } from "react-hook-form";
-import { FormRef, FormProps, FormValuesByQuestions } from "~/@types/Form";
-import { useAppSelector } from "~/store";
-import { selectCurrentStep } from "~/store/steps/selectors";
-import { IdentityQuestions } from "~/store/steps/types";
+import { forwardRef, useCallback, useImperativeHandle } from "react"
+import { useForm } from "react-hook-form"
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+import { FormRef, FormProps, FormValuesByQuestions } from "~/@types/Form"
+import { useAppSelector } from "~/store"
+import { selectCurrentStep } from "~/store/steps/selectors"
+import { IdentityQuestions } from "~/@types/Steps"
+
+type FormValues = FormValuesByQuestions<IdentityQuestions>
+
+const schema = yup.object().shape<Record<keyof FormValues, yup.AnySchema>>({
+  name: yup.string(),
+  email: yup.string()
+    .email('It is not a valid e-mail')
+    .required('This field is Required')
+})
 
 export const IdentityForm = forwardRef<FormRef, FormProps>(
   ({ onSubmit }, ref) => {
@@ -15,7 +26,9 @@ export const IdentityForm = forwardRef<FormRef, FormProps>(
       getValues,
       handleSubmit,
       formState: { errors }
-    } = useForm<FormValuesByQuestions<IdentityQuestions>>();
+    } = useForm<FormValues>({
+      resolver: yupResolver(schema)
+    })
 
     const submit = useCallback(
       () => handleSubmit(onSubmit)(),
@@ -42,10 +55,10 @@ export const IdentityForm = forwardRef<FormRef, FormProps>(
         <input
           defaultValue={questions.email.answer}
           placeholder={questions.email.description}
-          { ...register("email", { required: true }) }
+          {...register("email", { required: true }) }
         />
-        {errors.email && <span>This field is required</span>}
+        {errors.email?.message}
       </form>
-    );
+    )
   }
 )
