@@ -30,7 +30,6 @@ export const Input = styled.input`
   outline-offset: 2px;
   border: none;
   flex: 1;
-  font-family: 'Inter';
   color: #f2f3e6;
 `
 

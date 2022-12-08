@@ -5,7 +5,6 @@ export const Button = styled.button`
   padding: 8px 16px;
   color: #ffffff;
   font-weight: bold;
-  font-family: 'Inter';
   border: none;
   cursor: pointer;
   background: linear-gradient(90deg, rgb(64, 52, 81) 0%, rgb(34, 19, 44) 100%);
