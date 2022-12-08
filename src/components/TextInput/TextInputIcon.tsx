@@ -1,7 +1,9 @@
 import { PropsWithChildren } from 'react';
 import { Icon } from './styles';
 
-export function TextInputIcon({ children }: PropsWithChildren) {
+export type TextInputIconProps = PropsWithChildren
+
+export function TextInputIcon({ children }: TextInputIconProps) {
   return (
     <Icon>
       {children}

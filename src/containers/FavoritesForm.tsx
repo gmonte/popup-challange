@@ -6,6 +6,8 @@ import { FormRef, FormProps, FormValuesByQuestions } from "~/@types/Form"
 import { useAppSelector } from "~/store"
 import { selectCurrentStep } from "~/store/steps/selectors"
 import { FavoritesQuestions } from "~/@types/Steps"
+import { Form } from "~/components/Form"
+import { TextInput } from "~/components/TextInput"
 
 type FormValues = FormValuesByQuestions<FavoritesQuestions>
 
@@ -43,21 +45,23 @@ export const FavoritesForm = forwardRef<FormRef, FormProps>(
     }
 
     return (
-      <form onSubmit={ (e) => e.preventDefault() }>
-        <input
-          defaultValue={questions.favoriteBook.answer}
-          placeholder={questions.favoriteBook.description}
-          {...register("favoriteBook", { required: true }) }
-        />
-        {errors.favoriteBook && <span>This field is required</span>}
+      <Form>
+        <TextInput.Root error={errors.favoriteBook?.message}>
+          <TextInput.Input
+            defaultValue={questions.favoriteBook.answer}
+            placeholder={questions.favoriteBook.description}
+            {...register("favoriteBook", { required: true })}
+          />
+        </TextInput.Root>
 
-        <input
-          defaultValue={questions.favoriteColor.answer}
-          placeholder={questions.favoriteColor.description}
-          {...register("favoriteColor", { required: true }) }
-        />
-        {errors.favoriteColor && <span>This field is required</span>}
-      </form>
+        <TextInput.Root error={errors.favoriteColor?.message}>
+          <TextInput.Input
+            defaultValue={questions.favoriteColor.answer}
+            placeholder={questions.favoriteColor.description}
+            {...register("favoriteColor", { required: true })}
+          />
+        </TextInput.Root>
+      </Form>
     )
   }
 )

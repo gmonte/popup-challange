@@ -17,4 +17,5 @@ export function DialogContent({
     </Content>
   )
 }
+
 DialogContent.displayName = 'Dialog.Content'

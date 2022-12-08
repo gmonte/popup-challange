@@ -1,3 +1,5 @@
+import { Fragment } from "react";
+import { List } from "~/components/List";
 import { useAppSelector } from "~/store";
 import { selectAllQuestions } from "~/store/steps/selectors";
 
@@ -5,12 +7,13 @@ export function SummaryTable() {
   const allQuestions = useAppSelector(selectAllQuestions)
 
   return (
-    <ul>
+    <List.Root numberOfColumns={ 2 }>
       {Object.entries(allQuestions).map(([questionId, question]) => (
-        <li key={questionId}>
-          {question.description}: {question.answer}
-        </li>
+        <Fragment key={questionId}>
+          <List.Item style={{textAlign: 'right'}}>{question.description}:</List.Item>
+          <List.Item style={{fontWeight: 'bold'}}>{question.answer || '-'}</List.Item>
+        </Fragment>
       ))}
-    </ul>
+    </List.Root>
   );
 }

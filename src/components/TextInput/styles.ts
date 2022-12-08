@@ -2,10 +2,18 @@ import styled from 'styled-components'
 import { Slot } from '@radix-ui/react-slot'
 
 export const Root = styled.div`
-
+  color: #f2f3e6;
+  margin: 0;
+  padding-left: 2px;
+  font-size: 0.85rem;
 `
 
-export const Label = styled.div``
+export const Error = styled.p`
+  margin: 0;
+  padding-left: 5px;
+  padding-top: 6px;
+  color: #f8b4b4;
+`
 
 export const RootContainer = styled.div`
   display: flex;
@@ -17,8 +25,7 @@ export const RootContainer = styled.div`
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
-  margin-bottom: 12px;
-
+  
   &:focus-within {
     box-shadow: 0 0 0 2px rgb(67, 55, 124);
   }
@@ -31,6 +38,7 @@ export const Input = styled.input`
   border: none;
   flex: 1;
   color: #f2f3e6;
+  font-size: 0.9rem;
 `
 
 export const Icon = styled(Slot)`

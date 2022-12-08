@@ -6,6 +6,8 @@ import { FormRef, FormProps, FormValuesByQuestions } from "~/@types/Form";
 import { useAppSelector } from "~/store";
 import { selectCurrentStep } from "~/store/steps/selectors";
 import { DetailsQuestions } from "~/@types/Steps";
+import { Form } from "~/components/Form";
+import { TextInput } from "~/components/TextInput";
 
 type FormValues = FormValuesByQuestions<DetailsQuestions>
 
@@ -43,21 +45,23 @@ export const DetailsForm = forwardRef<FormRef, FormProps>(
     }
 
     return (
-      <form onSubmit={ (e) => e.preventDefault() }>
-        <input
-          defaultValue={questions.age.answer}
-          placeholder={questions.age.description}
-          { ...register("age", { required: true }) }
-        />
-        {errors.age && <span>This field is required</span>}
+      <Form>
+        <TextInput.Root error={errors.age?.message}>
+          <TextInput.Input
+            defaultValue={questions.age.answer}
+            placeholder={questions.age.description}
+            {...register("age", { required: true })}
+          />
+        </TextInput.Root>
 
-        <input
-          defaultValue={questions.gender.answer}
-          placeholder={questions.gender.description}
-          { ...register("gender", { required: true }) }
-        />
-        {errors.gender && <span>This field is required</span>}
-      </form>
+        <TextInput.Root error={errors.gender?.message}>
+          <TextInput.Input
+            defaultValue={questions.gender.answer}
+            placeholder={questions.gender.description}
+            {...register("gender", { required: true })}
+          />
+        </TextInput.Root>
+      </Form>
     );
   }
 )

@@ -19,4 +19,5 @@ export function DialogFooter({
     </Footer>
   )
 }
+
 DialogFooter.displayName = 'Dialog.Footer'

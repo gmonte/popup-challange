@@ -31,4 +31,5 @@ export function DialogHeader({
     </Header>
   )
 }
+
 DialogHeader.displayName = 'Dialog.Header'

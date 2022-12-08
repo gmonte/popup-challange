@@ -38,7 +38,7 @@ export const Header = styled.div`
   padding: 12px 12px 12px 18px;
   display: flex;
   color: ${({ style }) => style?.color || '#fff'};
-  background: linear-gradient(90deg, rgba(22, 7, 33, 0.9) 0%, rgba(48, 39, 55, 0.56) 100%);
+  background: linear-gradient(90deg, rgba(65, 53, 180, 0.9) 0%, rgba(44, 26, 69, 0.5) 100%);
   backdrop-filter: blur(5px);
 `
 

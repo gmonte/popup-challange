@@ -8,6 +8,7 @@ import { selectCurrentStep } from "~/store/steps/selectors"
 import { IdentityQuestions } from "~/@types/Steps"
 import { TextInput } from "~/components/TextInput"
 import { EnvelopeSimple, User } from "phosphor-react"
+import { Form } from "~/components/Form"
 
 type FormValues = FormValuesByQuestions<IdentityQuestions>
 
@@ -45,9 +46,8 @@ export const IdentityForm = forwardRef<FormRef, FormProps>(
     }
 
     return (
-      <form onSubmit={ (e) => e.preventDefault() }>
-
-        <TextInput.Root label={questions.name.description}>
+      <Form>
+        <TextInput.Root>
           <TextInput.Icon>
             <User />
           </TextInput.Icon>
@@ -58,10 +58,7 @@ export const IdentityForm = forwardRef<FormRef, FormProps>(
           />
         </TextInput.Root>
 
-        <TextInput.Root
-          label={questions.email.description}
-          error={errors.email?.message}
-        >
+        <TextInput.Root error={errors.email?.message}>
           <TextInput.Icon>
             <EnvelopeSimple />
           </TextInput.Icon>
@@ -71,7 +68,7 @@ export const IdentityForm = forwardRef<FormRef, FormProps>(
             {...register("email", { required: true })}
           />
         </TextInput.Root>
-      </form>
+      </Form>
     )
   }
 )
