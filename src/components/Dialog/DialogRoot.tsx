@@ -1,11 +1,11 @@
 import { Root } from '@radix-ui/react-dialog'
 import { PropsWithChildren } from 'react'
 import { ModalProps } from '~/hooks/useModal'
+import { TransitionFade } from '../Transition'
 
 import {
   Overlay,
-  Box,
-  Transition
+  Box
 } from './styles'
 
 export type DialogRootProps = PropsWithChildren<Omit<ModalProps, 'id'> & {
@@ -20,13 +20,13 @@ export function DialogRoot({
 }: DialogRootProps) {
   return (
     <Root open onOpenChange={(openState) => !openState && close()}>
-      <Transition $open={open}>
+      <TransitionFade $open={open}>
         <Overlay>
           <Box $size={size}>
             {children}
           </Box>
         </Overlay>
-      </Transition>
+      </TransitionFade>
     </Root>
   )
 }

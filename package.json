@@ -9,10 +9,15 @@
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.2",
+    "@reduxjs/toolkit": "^1.9.1",
     "clsx": "^1.2.1",
     "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.0",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
     "short-uuid": "^4.2.2",
     "styled-components": "^5.3.6",
     "vite-plugin-fonts": "^0.6.0"
@@ -21,6 +26,7 @@
     "@types/node": "^18.11.11",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
+    "@types/redux-logger": "^3.0.9",
     "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^2.2.0",
     "autoprefixer": "^10.4.13",

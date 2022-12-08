@@ -1,14 +1,6 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog'
 import styled from 'styled-components'
 
-export const Transition = styled.div<{ $open: boolean }>`
-  display: inline-block;
-  opacity: ${({ $open }) => $open ? 1 : 0};
-  visibility: ${({ $open }) => $open ? 'visible' : 'hidden'};
-  animation: ${({ $open }) => $open ? 'fadeIn' : 'fadeOut'} 0.1s linear;
-  transition: visibility 0.1s linear, opacity 0.1s linear;
-`
-
 export const Overlay = styled(DialogPrimitive.Overlay)`
   position: fixed;
   inset: 0;

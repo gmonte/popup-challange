@@ -1,7 +1,10 @@
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 
 import { Dialog } from '~/components/Dialog'
 import { ModalProps } from '~/hooks/useModal'
+import { useAppDispatch, useAppSelector } from '~/store'
+import { stepsActions } from '~/store/steps'
+import { selectCurrentStep, selectHasNextStep, selectHasPreviousStep, selectIsLastStep } from '~/store/steps/selectors'
 
 export interface PopUpProps extends ModalProps {
   onConfirm?: () => void
@@ -12,14 +15,34 @@ export function PopUp ({
   close,
   onConfirm
 }: PopUpProps) {
-  const handleConfirm = useCallback(
+  const dispatch = useAppDispatch()
+
+  const currentStep = useAppSelector(selectCurrentStep)
+  const hasNextStep = useAppSelector(selectHasNextStep)
+  const hasPreviousStep = useAppSelector(selectHasPreviousStep)
+  const isLastStep = useAppSelector(selectIsLastStep)
+
+  const handleNext = useCallback(
     () => {
-      if (onConfirm) {
-        onConfirm()
-      }
+      dispatch(stepsActions.next({
+        answer: 'response'
+      }))
+    },
+    [dispatch]
+  )
+
+  const handlePrevious = useCallback(
+    () => {
+      dispatch(stepsActions.previous())
+    },
+    [dispatch]
+  )
+
+  const handleSubmit = useCallback(
+    () => {
       close()
     },
-    [close, onConfirm]
+    [close]
   )
 
   return (
@@ -29,25 +52,25 @@ export function PopUp ({
       </Dialog.Header>
 
       <Dialog.Content>
-
-        <p>
-          Mollit enim in officia deserunt irure non.
-        </p>
-        
-        <p>
-          Elit excepteur culpa sit aute sit veniam do in. Ut ipsum consectetur ex voluptate ullamco eu. Elit consequat est ex reprehenderit mollit. Minim esse id amet ut laboris eiusmod culpa voluptate incididunt qui nulla sunt.
-        </p>
-        
-        <p>
-          Ullamco tempor labore est velit incididunt elit fugiat irure eiusmod. Ut tempor exercitation aliquip nostrud quis esse do velit nisi est labore adipisicing. Laboris proident laborum non proident eiusmod labore mollit irure enim eiusmod ea deserunt proident.
-        </p>
-
+        Current Step: {currentStep?.id}
       </Dialog.Content>
 
       <Dialog.Footer>
-        <button onClick={ handleConfirm }>
-          Ok
-        </button>
+        {hasPreviousStep && (
+          <button onClick={handlePrevious}>
+            Previous
+          </button>
+        )}
+        {hasNextStep && (
+          <button onClick={handleNext}>
+            Next
+          </button>
+        )}
+        {isLastStep && (
+          <button onClick={handleSubmit}>
+            Submit
+          </button>
+        )}
       </Dialog.Footer>
     </Dialog.Root>
   )
