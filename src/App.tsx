@@ -2,6 +2,8 @@ import { useCallback, useEffect } from "react"
 import { PopUp } from "./containers/PopUp"
 import { GlobalStyle } from "./globalStyles"
 import { useModal } from "./hooks/useModal"
+import { useAppSelector } from "./store"
+import { selectFinished } from "./store/steps/selectors"
 
 type AppProps = {
   rootDivId: string
@@ -9,6 +11,8 @@ type AppProps = {
 
 function App({ rootDivId }: AppProps) {
   const { createModal } = useModal()
+
+  const finished = useAppSelector(selectFinished)
 
   const handleOpenModal = useCallback(
     () => {
@@ -25,13 +29,15 @@ function App({ rootDivId }: AppProps) {
 
   useEffect(
     () => {
-      const timeout = setTimeout(
-        handleOpenModal,
-        1000 * 2 // 2 seconds
-      )
-      return () => clearTimeout(timeout)
+      if (!finished) {
+        const timeout = setTimeout(
+          handleOpenModal,
+          1000 * 2 // 2 seconds
+        )
+        return () => clearTimeout(timeout)
+      }
     },
-    [handleOpenModal]
+    [handleOpenModal, finished]
   )
 
   return (

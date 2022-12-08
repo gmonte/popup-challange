@@ -1,73 +1,114 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
+import { FieldValues } from 'react-hook-form'
+import { FormRef } from '~/@types/Form'
 
 import { Dialog } from '~/components/Dialog'
 import { ModalProps } from '~/hooks/useModal'
 import { useAppDispatch, useAppSelector } from '~/store'
 import { stepsActions } from '~/store/steps'
-import { selectCurrentStep, selectHasNextStep, selectHasPreviousStep, selectIsLastStep } from '~/store/steps/selectors'
+import { selectCurrentStep, selectFinished, selectHasNextStep, selectHasPreviousStep, selectIsLastStep } from '~/store/steps/selectors'
+import { DetailsForm } from './DetailsForm'
+import { FavoritesForm } from './FavoritesForm'
+import { IdentityForm } from './IdentityForm'
+import { SummaryTable } from './SummaryTable'
 
-export interface PopUpProps extends ModalProps {
-  onConfirm?: () => void
-}
-
-export function PopUp ({
-  open,
-  close,
-  onConfirm
-}: PopUpProps) {
+export function PopUp ({ open, close }: ModalProps) {
   const dispatch = useAppDispatch()
+
+  const currentFormRef = useRef<FormRef>(null)
 
   const currentStep = useAppSelector(selectCurrentStep)
   const hasNextStep = useAppSelector(selectHasNextStep)
   const hasPreviousStep = useAppSelector(selectHasPreviousStep)
   const isLastStep = useAppSelector(selectIsLastStep)
+  const finished = useAppSelector(selectFinished)
 
   const handleNext = useCallback(
-    () => {
-      dispatch(stepsActions.next({
-        answer: 'response'
-      }))
+    (answers: FieldValues) => {
+      dispatch(stepsActions.next(answers))
     },
     [dispatch]
   )
 
   const handlePrevious = useCallback(
     () => {
-      dispatch(stepsActions.previous())
+      const answers = currentFormRef.current?.getValues?.()
+      dispatch(stepsActions.previous(answers))
     },
     [dispatch]
   )
 
+  const handleSubmitCurrentForm = useCallback(
+    () => currentFormRef.current?.submit(),
+    []
+  )
+  
   const handleSubmit = useCallback(
     () => {
-      close()
+      dispatch(stepsActions.finish())
     },
-    [close]
+    []
+  )
+
+  const Content = useMemo(
+    () => {
+      switch (currentStep?.id) {
+        case 'identity': return () => (
+          <IdentityForm
+            ref={currentFormRef}
+            onSubmit={handleNext}
+          />
+        )
+        case 'details': return () => (
+          <DetailsForm
+            ref={currentFormRef}
+            onSubmit={handleNext}
+          />
+        )
+        case 'favorites': return () => (
+          <FavoritesForm
+            ref={currentFormRef}
+            onSubmit={handleNext}
+          />
+        )
+        default: return SummaryTable
+      }
+    },
+    [currentStep]
+  )
+
+  useEffect(
+    () => {
+      if (finished) {
+        close()
+      }
+    },
+    [finished, close]
   )
 
   return (
     <Dialog.Root open={open} close={close}>
       <Dialog.Header>
-        Dialog title here
+        {currentStep?.description}
       </Dialog.Header>
 
       <Dialog.Content>
-        Current Step: {currentStep?.id}
+        <Content />
       </Dialog.Content>
 
       <Dialog.Footer>
         {hasPreviousStep && (
-          <button onClick={handlePrevious}>
+          <button type="button" onClick={handlePrevious}>
             Previous
           </button>
         )}
         {hasNextStep && (
-          <button onClick={handleNext}>
+          <button type="button" onClick={handleSubmitCurrentForm}>
             Next
           </button>
         )}
         {isLastStep && (
-          <button onClick={handleSubmit}>
+          <button type="button" onClick={handleSubmit}>
             Submit
           </button>
         )}

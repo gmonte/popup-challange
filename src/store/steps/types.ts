@@ -1,34 +1,35 @@
-export interface IdentityAnswers {
-  name: string
-  email: string
+export interface Question {
+  description: string
+  answer: string
 }
 
-export interface DetailsAnswers {
-  age: string
-  gender: string
+export type IdentityQuestions = {
+  name: Question
+  email: Question
 }
 
-export interface FavoritesAnswers {
-  book: string
-  color: string
+export type DetailsQuestions = {
+  age: Question
+  gender: Question
 }
 
-export interface SummaryAnswers {
-  agree: boolean
+export type FavoritesQuestions = {
+  favoriteBook: Question
+  favoriteColor: Question
 }
 
-export interface Answers {
-  [key: string]: string | boolean
-}
+export type AllQuestions = IdentityQuestions & DetailsQuestions & FavoritesQuestions
+
+export type StepId = 'identity' | 'details' | 'favorites' | 'summary'
 
 export interface Step {
-  id: string
-  description: string,
-  answers: Answers
+  id: StepId
+  description: string
+  questions?: IdentityQuestions | DetailsQuestions | FavoritesQuestions
 }
 
 export interface State {
-  currentStepId: string,
-  steps: Step[],
+  currentStepId: string
+  steps: Step[]
   finished: boolean
 }
