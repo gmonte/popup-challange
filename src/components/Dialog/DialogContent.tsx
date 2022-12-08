@@ -1,12 +1,18 @@
 import { PropsWithChildren } from 'react'
+import { CSSProperties } from 'styled-components'
 
 import { Content } from './styles'
 
-export type DialogContentProps = PropsWithChildren
+export type DialogContentProps = PropsWithChildren<{
+  style?: CSSProperties
+}>
 
-export function DialogContent({ children }: DialogContentProps) {
+export function DialogContent({
+  children,
+  style
+}: DialogContentProps) {
   return (
-    <Content>
+    <Content style={style}>
       {children}
     </Content>
   )

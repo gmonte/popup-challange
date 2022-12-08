@@ -1,26 +1,31 @@
 import { Close } from '@radix-ui/react-dialog'
 
 import { X } from 'phosphor-react'
-import { PropsWithChildren } from 'react'
+import { CSSProperties, PropsWithChildren } from 'react'
+import { useDialogRoot } from './DialogRoot'
 
 import { Header, HeaderContent } from './styles'
 
 export type DialogHeaderProps = PropsWithChildren<{
-  hideClose?: boolean
+  hideClose?: boolean,
+  style?: CSSProperties
 }>
 
 export function DialogHeader({
   children,
-  hideClose =false
+  hideClose = false,
+  style
 }: DialogHeaderProps) {
+  const { escape } = useDialogRoot()
+
   return (
-    <Header>
+    <Header style={style}>
       <HeaderContent>
         {children}
       </HeaderContent>
-      {!hideClose && (
+      {(escape && !hideClose) && (
         <Close asChild style={{cursor: 'pointer'}}>
-          <X />
+          <X color={ style?.color || '#ffffff'} />
         </Close>
       )}
     </Header>

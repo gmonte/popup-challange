@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { FieldValues } from 'react-hook-form'
 import { FormRef } from '~/@types/Form'
+import { Button, ButtonPrimary } from '~/components/Button'
 
 import { Dialog } from '~/components/Dialog'
 import { ModalProps } from '~/hooks/useModal'
@@ -87,7 +88,11 @@ export function PopUp ({ open, close }: ModalProps) {
   )
 
   return (
-    <Dialog.Root open={open} close={close}>
+    <Dialog.Root
+      open={open}
+      close={close}
+      escape={false}
+    >
       <Dialog.Header>
         {currentStep?.description}
       </Dialog.Header>
@@ -96,21 +101,26 @@ export function PopUp ({ open, close }: ModalProps) {
         <Content />
       </Dialog.Content>
 
-      <Dialog.Footer>
-        {hasPreviousStep && (
-          <button type="button" onClick={handlePrevious}>
-            Previous
-          </button>
-        )}
+      <Dialog.Footer
+        style={{
+          flexDirection: 'row-reverse',
+          justifyContent: 'space-between'
+        }}
+      >
         {hasNextStep && (
-          <button type="button" onClick={handleSubmitCurrentForm}>
+          <ButtonPrimary onClick={handleSubmitCurrentForm}>
             Next
-          </button>
+          </ButtonPrimary>
         )}
         {isLastStep && (
-          <button type="button" onClick={handleSubmit}>
+          <ButtonPrimary onClick={handleSubmit}>
             Submit
-          </button>
+          </ButtonPrimary>
+        )}
+        {hasPreviousStep && (
+          <Button onClick={handlePrevious}>
+            Previous
+          </Button>
         )}
       </Dialog.Footer>
     </Dialog.Root>

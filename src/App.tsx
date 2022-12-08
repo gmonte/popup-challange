@@ -41,12 +41,7 @@ function App({ rootDivId }: AppProps) {
   )
 
   return (
-    <>
-      <GlobalStyle rootDivId={ rootDivId } />
-      <button onClick={handleOpenModal}>
-        open modal
-      </button>
-    </>
+    <GlobalStyle rootDivId={ rootDivId } />
   )
 }
 

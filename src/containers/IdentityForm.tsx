@@ -6,6 +6,8 @@ import { FormRef, FormProps, FormValuesByQuestions } from "~/@types/Form"
 import { useAppSelector } from "~/store"
 import { selectCurrentStep } from "~/store/steps/selectors"
 import { IdentityQuestions } from "~/@types/Steps"
+import { TextInput } from "~/components/TextInput"
+import { EnvelopeSimple, User } from "phosphor-react"
 
 type FormValues = FormValuesByQuestions<IdentityQuestions>
 
@@ -44,18 +46,31 @@ export const IdentityForm = forwardRef<FormRef, FormProps>(
 
     return (
       <form onSubmit={ (e) => e.preventDefault() }>
-        <input
-          defaultValue={questions.name.answer}
-          placeholder={questions.name.description}
-          { ...register("name") }
-        />
 
-        <input
-          defaultValue={questions.email.answer}
-          placeholder={questions.email.description}
-          {...register("email", { required: true }) }
-        />
-        {errors.email?.message}
+        <TextInput.Root label={questions.name.description}>
+          <TextInput.Icon>
+            <User />
+          </TextInput.Icon>
+          <TextInput.Input
+            defaultValue={questions.name.answer}
+            placeholder={questions.name.description}
+            {...register("name")}
+          />
+        </TextInput.Root>
+
+        <TextInput.Root
+          label={questions.email.description}
+          error={errors.email?.message}
+        >
+          <TextInput.Icon>
+            <EnvelopeSimple />
+          </TextInput.Icon>
+          <TextInput.Input
+            defaultValue={questions.email.answer}
+            placeholder={questions.email.description}
+            {...register("email", { required: true })}
+          />
+        </TextInput.Root>
       </form>
     )
   }
