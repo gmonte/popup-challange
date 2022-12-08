@@ -11,9 +11,7 @@ type FormValues = FormValuesByQuestions<IdentityQuestions>
 
 const schema = yup.object().shape<Record<keyof FormValues, yup.AnySchema>>({
   name: yup.string(),
-  email: yup.string()
-    .email('It is not a valid e-mail')
-    .required('This field is Required')
+  email: yup.string().email('It is not a valid e-mail')
 })
 
 export const IdentityForm = forwardRef<FormRef, FormProps>(
