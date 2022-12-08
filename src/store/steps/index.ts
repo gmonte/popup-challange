@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { FieldValues } from 'react-hook-form'
 
-import { AllQuestions, State, Step } from '~/@types/Steps'
+import { AllQuestions, ReducerState, Step } from '~/@types/Steps'
 
 const initialSteps: Step[] = [
   {
@@ -52,7 +52,7 @@ const initialSteps: Step[] = [
   }
 ]
 
-const initialState: State = {
+const initialState: ReducerState = {
   steps: initialSteps,
   currentStepId: initialSteps[0].id,
   submitted: false

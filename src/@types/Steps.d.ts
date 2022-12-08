@@ -28,7 +28,7 @@ export interface Step {
   questions?: IdentityQuestions | DetailsQuestions | FavoritesQuestions
 }
 
-export interface State {
+export interface ReducerState {
   currentStepId: string
   steps: Step[]
   submitted: boolean
