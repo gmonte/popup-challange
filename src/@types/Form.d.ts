@@ -11,5 +11,5 @@ export type FormProps = {
 }
 
 export type FormValuesByQuestions<T = Questions> = {
-  [key in keyof T]: Question['answer']
+  [key in keyof T]: T[key]['answer']
 }

@@ -21,10 +21,7 @@ export function App({ rootDivId, portalDivId }: AppProps) {
     () => {
       createModal({
         id: 'popup',
-        Component: PopUp,
-        props: {
-          onConfirm: () => console.log('ok pressed')
-        }
+        Component: PopUp
       })
     },
     []

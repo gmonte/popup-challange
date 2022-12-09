@@ -1,6 +1,7 @@
-export interface Question {
+export interface Question<T = string, P = T> {
   description: string
-  answer?: string
+  answer?: T
+  options?: { label: string, value: P }[]
 }
 
 export type IdentityQuestions = {
@@ -15,7 +16,7 @@ export type DetailsQuestions = {
 
 export type FavoritesQuestions = {
   favoriteBook: Question
-  favoriteColor: Question
+  favoriteColors: Question<string[], string>
 }
 
 export type AllQuestions = IdentityQuestions & DetailsQuestions & FavoritesQuestions

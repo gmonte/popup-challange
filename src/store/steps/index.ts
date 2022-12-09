@@ -10,11 +10,11 @@ const initialSteps: Step[] = [
     questions: {
       name: {
         description: 'Name',
-        answer: ''
+        answer: undefined
       },
       email: {
         description: 'E-mail',
-        answer: ''
+        answer: undefined
       }
     }
   },
@@ -24,11 +24,22 @@ const initialSteps: Step[] = [
     questions: {
       age: {
         description: 'Age',
-        answer: undefined
+        answer: undefined,
+        options: [...Array(100)].map((_, index) => ({
+          label: (index + 1).toString(),
+          value: (index + 1).toString()
+        }))
       },
       gender: {
         description: 'Gender',
-        answer: ''
+        answer: undefined,
+        options: [
+          { label: 'Woman', value: 'woman' },
+          { label: 'Man', value: 'man' },
+          { label: 'Transgender', value: 'transgender' },
+          { label: 'Non-binary / Non-confirming', value: 'non-binary' },
+          { label: 'Prefer not to respond', value: 'no-respond' },
+        ]
       }
     }
   },
@@ -38,11 +49,19 @@ const initialSteps: Step[] = [
     questions: {
       favoriteBook: {
         description: 'Favorite Book',
-        answer: ''
+        answer: undefined
       },
-      favoriteColor: {
-        description: 'Favorite Color',
-        answer: ''
+      favoriteColors: {
+        description: 'Favorite Colors',
+        answer: undefined,
+        options: [
+          { label: 'Black', value: 'black' },
+          { label: 'Blue', value: 'blue' },
+          { label: 'Green', value: 'green' },
+          { label: 'Red', value: 'red' },
+          { label: 'Yellow', value: 'yellow' },
+          { label: 'White', value: 'white' },
+        ]
       }
     }
   },

@@ -7,10 +7,7 @@ import { useAppSelector } from "~/store";
 import { selectCurrentStep } from "~/store/steps/selectors";
 import { DetailsQuestions } from "~/@types/Steps";
 import { Form } from "~/components/Form";
-import { TextInput } from "~/components/TextInput";
 import { Select } from "~/components/Select";
-import { SelectRoot } from "~/components/Select/SelectRoot";
-import uuid from "short-uuid";
 import { RadioGroup } from "~/components/RadioGroup";
 
 type FormValues = FormValuesByQuestions<DetailsQuestions>
@@ -27,7 +24,6 @@ export const DetailsForm = forwardRef<FormRef, FormProps>(
 
     const {
       control,
-      register,
       getValues,
       handleSubmit,
       formState: { errors },
@@ -40,15 +36,26 @@ export const DetailsForm = forwardRef<FormRef, FormProps>(
     })
 
     const ageOptions = useMemo(
-      () => [...Array(100)].map((_, index) => (
+      () => questions.age.options?.map?.((option) => (
         <Select.Option
-          key={uuid().generate()}
-          value={(index + 1).toString()}
+          key={option.value}
+          value={option.value}
         >
-          {index + 1}
+          {option.label}
         </Select.Option>
       )),
-      []
+      [questions.age.options]
+    )
+
+    const genderOptions = useMemo(
+      () => questions.gender.options?.map?.((option) => (
+        <RadioGroup.Item
+          key={option.value}
+          value={option.value}
+          label={option.label}
+        />
+      )),
+      [questions.gender.options]
     )
 
     const submit = useCallback(
@@ -70,12 +77,13 @@ export const DetailsForm = forwardRef<FormRef, FormProps>(
         <Controller
           name="age"
           control={control}
-          render={({ field: { onChange, ...field } }) => (
+          render={({ field: { onChange, value, ...field } }) => (
             <Select.Root
               label={questions.age.description}
               placeholder={questions.age.description}
               onValueChange={onChange}
               error={errors.age?.message}
+              value={value}
               {...field}
             >
               {ageOptions}
@@ -86,23 +94,18 @@ export const DetailsForm = forwardRef<FormRef, FormProps>(
         <Controller
           name="gender"
           control={control}
-          render={({ field: { onChange, ...field } }) => (
+          render={({ field: { onChange, value, ...field } }) => (
             <RadioGroup.Root
               label={questions.gender.description}
               error={errors.gender?.message}
               onValueChange={onChange}
+              value={value}
               {...field}
             >
-              <RadioGroup.Item value="woman" label="Woman" />
-              <RadioGroup.Item value="man" label="Man" />
-              <RadioGroup.Item value="transgender" label="Transgender" />
-              <RadioGroup.Item value="non-binary" label="Non-binary / Non-confirming" />
-              <RadioGroup.Item value="no-respond" label="Prefer not to respond" />
+              {genderOptions}
             </RadioGroup.Root>
           )}
         />
-
-        
       </Form>
     );
   }
