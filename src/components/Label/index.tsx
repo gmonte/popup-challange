@@ -15,7 +15,7 @@ export function Label({
     <Container>
       {label && (
         <LabelStyled $error={!!error} htmlFor={inputName}>
-          {label}
+          {label}{':'}
         </LabelStyled>
       )}
       {error && (

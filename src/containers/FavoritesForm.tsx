@@ -8,6 +8,7 @@ import { selectCurrentStep } from "~/store/steps/selectors"
 import { FavoritesQuestions } from "~/@types/Steps"
 import { Form } from "~/components/Form"
 import { TextInput } from "~/components/TextInput"
+import { BookBookmark } from "phosphor-react"
 
 type FormValues = FormValuesByQuestions<FavoritesQuestions>
 
@@ -46,7 +47,13 @@ export const FavoritesForm = forwardRef<FormRef, FormProps>(
 
     return (
       <Form>
-        <TextInput.Root error={errors.favoriteBook?.message}>
+        <TextInput.Root
+          label={questions.favoriteBook.description}
+          error={errors.favoriteBook?.message}
+        >
+          <TextInput.Icon>
+            <BookBookmark />
+          </TextInput.Icon>
           <TextInput.Input
             defaultValue={questions.favoriteBook.answer}
             placeholder={questions.favoriteBook.description}
@@ -54,7 +61,10 @@ export const FavoritesForm = forwardRef<FormRef, FormProps>(
           />
         </TextInput.Root>
 
-        <TextInput.Root error={errors.favoriteColor?.message}>
+        <TextInput.Root
+          label={questions.favoriteColor.description}
+          error={errors.favoriteColor?.message}
+        >
           <TextInput.Input
             defaultValue={questions.favoriteColor.answer}
             placeholder={questions.favoriteColor.description}
