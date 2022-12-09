@@ -14,7 +14,11 @@ export function SummaryTable() {
             {question.description}{':'}
           </List.Item>
           <List.Item style={{fontWeight: 'bold'}}>
-            {question.answer || '-'}
+            {
+              Array.isArray(question.answer)
+                ? question.answer?.join(', ')
+                : question.answer || '-'
+            }
           </List.Item>
         </Fragment>
       ))}
