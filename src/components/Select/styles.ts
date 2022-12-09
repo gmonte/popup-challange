@@ -60,7 +60,7 @@ export const OptionContainer = styled(SelectPrimitive.Item)`
   cursor: pointer;
   color: #f2f3e6;
 
-  background-color: rgba(67, 55, 124, 0.9);
+  background-color: rgba(67, 55, 124, 0.98);
 
   transition: background-color 0.1s linear;
 

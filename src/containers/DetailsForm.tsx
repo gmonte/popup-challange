@@ -11,6 +11,7 @@ import { TextInput } from "~/components/TextInput";
 import { Select } from "~/components/Select";
 import { SelectRoot } from "~/components/Select/SelectRoot";
 import uuid from "short-uuid";
+import { RadioGroup } from "~/components/RadioGroup";
 
 type FormValues = FormValuesByQuestions<DetailsQuestions>
 
@@ -33,7 +34,8 @@ export const DetailsForm = forwardRef<FormRef, FormProps>(
     } = useForm<FormValues>({
       resolver: yupResolver(schema),
       defaultValues: {
-        age: questions.age.answer
+        age: questions.age.answer,
+        gender: questions.gender.answer,
       }
     })
 
@@ -70,6 +72,7 @@ export const DetailsForm = forwardRef<FormRef, FormProps>(
           control={control}
           render={({ field: { onChange, ...field } }) => (
             <Select.Root
+              label={questions.age.description}
               placeholder={questions.age.description}
               onValueChange={onChange}
               error={errors.age?.message}
@@ -80,13 +83,26 @@ export const DetailsForm = forwardRef<FormRef, FormProps>(
           )}
         />
 
-        <TextInput.Root error={errors.gender?.message}>
-          <TextInput.Input
-            defaultValue={questions.gender.answer}
-            placeholder={questions.gender.description}
-            {...register("gender", { required: true })}
-          />
-        </TextInput.Root>
+        <Controller
+          name="gender"
+          control={control}
+          render={({ field: { onChange, ...field } }) => (
+            <RadioGroup.Root
+              label={questions.gender.description}
+              error={errors.gender?.message}
+              onValueChange={onChange}
+              {...field}
+            >
+              <RadioGroup.Item value="woman" label="Woman" />
+              <RadioGroup.Item value="man" label="Man" />
+              <RadioGroup.Item value="transgender" label="Transgender" />
+              <RadioGroup.Item value="non-binary" label="Non-binary / Non-confirming" />
+              <RadioGroup.Item value="no-respond" label="Prefer not to respond" />
+            </RadioGroup.Root>
+          )}
+        />
+
+        
       </Form>
     );
   }

@@ -47,7 +47,7 @@ export const IdentityForm = forwardRef<FormRef, FormProps>(
 
     return (
       <Form>
-        <TextInput.Root>
+        <TextInput.Root label={questions.name.description}>
           <TextInput.Icon>
             <User />
           </TextInput.Icon>
@@ -58,14 +58,17 @@ export const IdentityForm = forwardRef<FormRef, FormProps>(
           />
         </TextInput.Root>
 
-        <TextInput.Root error={errors.email?.message}>
+        <TextInput.Root
+          label={questions.email.description}
+          error={errors.email?.message}
+        >
           <TextInput.Icon>
             <EnvelopeSimple />
           </TextInput.Icon>
           <TextInput.Input
             defaultValue={questions.email.answer}
             placeholder={questions.email.description}
-            {...register("email", { required: true })}
+            {...register("email")}
           />
         </TextInput.Root>
       </Form>

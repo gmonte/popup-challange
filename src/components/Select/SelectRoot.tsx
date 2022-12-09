@@ -18,6 +18,7 @@ import {
 export type SelectRootProps = SelectPrimitive.SelectProps & PropsWithChildren<{
   placeholder?: string
   error?: string
+  label?: string
 }>
 
 export const SelectRoot = forwardRef<HTMLButtonElement, SelectRootProps>(
@@ -25,6 +26,7 @@ export const SelectRoot = forwardRef<HTMLButtonElement, SelectRootProps>(
     children,
     placeholder,
     error,
+    label,
     ...props
   }, ref) => {
     const portalDivId = useSelector(selectPortalDivId)
@@ -36,7 +38,7 @@ export const SelectRoot = forwardRef<HTMLButtonElement, SelectRootProps>(
         <SelectPrimitive.Root {...props}>
           <Trigger ref={ref}>
             
-            <TextInput.Root error={error}>
+            <TextInput.Root error={error} label={label} name={props.name}>
               <SelectedValueContainer>
                 <SelectPrimitive.Value asChild>
                   <Value $hasValue={hasValue}>
