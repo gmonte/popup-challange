@@ -95,7 +95,7 @@ function updateQuestionsByStepIndex(
   return state
 }
 
-export const stepSlice = createSlice({
+export const stepsSlice = createSlice({
   name: 'steps',
   initialState,
   reducers: {
@@ -127,4 +127,4 @@ export const stepSlice = createSlice({
   }
 })
 
-export const stepsActions = stepSlice.actions
+export const stepsActions = stepsSlice.actions

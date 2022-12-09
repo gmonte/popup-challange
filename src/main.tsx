@@ -12,7 +12,7 @@ const portalDivId = `${ rootDivId }-portal`
 
 document.body.innerHTML += `
   <div id="${rootDivId}"></div>
-  <div id="test-portal"></div>
+  <div id="${portalDivId}"></div>
 `
 
 ReactDOM.createRoot(document.getElementById(rootDivId) as HTMLElement).render(
