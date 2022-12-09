@@ -72,3 +72,5 @@ export const SelectRoot = forwardRef<HTMLButtonElement, SelectRootProps>(
     )
   }
 )
+
+SelectRoot.displayName = 'Select.Root'

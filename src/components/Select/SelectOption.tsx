@@ -21,3 +21,5 @@ export const SelectOption = forwardRef<HTMLDivElement, SelectOptionProps>(
     )
   }
 )
+
+SelectOption.displayName = 'Select.Option'
