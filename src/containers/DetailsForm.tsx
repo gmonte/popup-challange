@@ -1,5 +1,5 @@
-import { forwardRef, useCallback, useImperativeHandle } from "react";
-import { useForm } from "react-hook-form";
+import { forwardRef, useCallback, useImperativeHandle, useMemo } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { FormRef, FormProps, FormValuesByQuestions } from "~/@types/Form";
@@ -8,6 +8,9 @@ import { selectCurrentStep } from "~/store/steps/selectors";
 import { DetailsQuestions } from "~/@types/Steps";
 import { Form } from "~/components/Form";
 import { TextInput } from "~/components/TextInput";
+import { Select } from "~/components/Select";
+import { SelectRoot } from "~/components/Select/SelectRoot";
+import uuid from "short-uuid";
 
 type FormValues = FormValuesByQuestions<DetailsQuestions>
 
@@ -22,13 +25,29 @@ export const DetailsForm = forwardRef<FormRef, FormProps>(
     const questions = currentStep?.questions as DetailsQuestions
 
     const {
+      control,
       register,
       getValues,
       handleSubmit,
-      formState: { errors }
+      formState: { errors },
     } = useForm<FormValues>({
-      resolver: yupResolver(schema)
+      resolver: yupResolver(schema),
+      defaultValues: {
+        age: questions.age.answer
+      }
     })
+
+    const ageOptions = useMemo(
+      () => [...Array(100)].map((_, index) => (
+        <Select.Option
+          key={uuid().generate()}
+          value={(index + 1).toString()}
+        >
+          {index + 1}
+        </Select.Option>
+      )),
+      []
+    )
 
     const submit = useCallback(
       () => handleSubmit(onSubmit)(),
@@ -46,13 +65,20 @@ export const DetailsForm = forwardRef<FormRef, FormProps>(
 
     return (
       <Form>
-        <TextInput.Root error={errors.age?.message}>
-          <TextInput.Input
-            defaultValue={questions.age.answer}
-            placeholder={questions.age.description}
-            {...register("age", { required: true })}
-          />
-        </TextInput.Root>
+        <Controller
+          name="age"
+          control={control}
+          render={({ field: { onChange, ...field } }) => (
+            <Select.Root
+              placeholder={questions.age.description}
+              onValueChange={onChange}
+              error={errors.age?.message}
+              {...field}
+            >
+              {ageOptions}
+            </Select.Root>
+          )}
+        />
 
         <TextInput.Root error={errors.gender?.message}>
           <TextInput.Input

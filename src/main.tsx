@@ -8,16 +8,26 @@ import { ModalsProvider } from './hooks/useModal'
 import { StoreProvider } from './store'
 
 const rootDivId = `popup-${ uuid().new() }`
+const portalDivId = `${ rootDivId }-portal`
 
-document.body.innerHTML += `<div id="${rootDivId}"></div>`
+document.body.innerHTML += `
+  <div id="${rootDivId}"></div>
+  <div id="test-portal"></div>
+`
 
 ReactDOM.createRoot(document.getElementById(rootDivId) as HTMLElement).render(
   <React.StrictMode>
     <>
-      <GlobalStyle rootDivId={rootDivId} />
+      <GlobalStyle
+        rootDivId={rootDivId}
+        portalDivId={portalDivId}
+      />
       <StoreProvider>
         <ModalsProvider>
-          <App />
+          <App
+            rootDivId={rootDivId}
+            portalDivId={portalDivId}
+          />
         </ModalsProvider>
       </StoreProvider>
     </>

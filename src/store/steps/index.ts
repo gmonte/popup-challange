@@ -24,7 +24,7 @@ const initialSteps: Step[] = [
     questions: {
       age: {
         description: 'Age',
-        answer: ''
+        answer: undefined
       },
       gender: {
         description: 'Gender',

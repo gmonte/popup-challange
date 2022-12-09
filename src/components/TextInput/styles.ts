@@ -13,6 +13,7 @@ export const Error = styled.p`
   padding-left: 5px;
   padding-top: 6px;
   color: #f8b4b4;
+  text-align: left;
 `
 
 export const RootContainer = styled.div`
@@ -25,6 +26,7 @@ export const RootContainer = styled.div`
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+  min-height: 24px;
   
   &:focus-within {
     box-shadow: 0 0 0 2px rgb(67, 55, 124);
@@ -39,6 +41,10 @@ export const Input = styled.input`
   flex: 1;
   color: #f2f3e6;
   font-size: 0.9rem;
+
+  &::placeholder {
+    color: #babaca;
+  }
 `
 
 export const Icon = styled(Slot)`

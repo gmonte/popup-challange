@@ -1,6 +1,6 @@
 export interface Question {
   description: string
-  answer: string
+  answer?: string
 }
 
 export type IdentityQuestions = {
