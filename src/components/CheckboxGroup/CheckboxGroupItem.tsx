@@ -7,11 +7,16 @@ import { Checkbox } from '../Checkbox'
 import { useCheckboxGroupContext } from './CheckboxGroupRoot'
 
 export interface CheckboxGroupItemProps {
+  id?: string,
   label: string
   value: string
 }
 
-export function CheckboxGroupItem ({ label, value }: CheckboxGroupItemProps) {
+export function CheckboxGroupItem ({
+  id,
+  label,
+  value
+}: CheckboxGroupItemProps) {
   const { groupValue, onOptionChange } = useCheckboxGroupContext()
 
   const checked = useMemo(
@@ -26,6 +31,7 @@ export function CheckboxGroupItem ({ label, value }: CheckboxGroupItemProps) {
 
   return (
     <Checkbox
+      id={id}
       label={ label }
       checked={ checked }
       onCheckedChange={ handleCheckedChange }

@@ -15,6 +15,7 @@ import {
 } from './styles'
 
 export type CheckboxProps = Omit<CheckboxPrimitive.CheckboxProps, 'asChild'> & {
+  id?: string
   label: string
 }
 
@@ -24,8 +25,8 @@ export const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
     ...props
   }, ref) => {
     const id = useMemo(
-      () => uuid().generate(),
-      []
+      () => props.id || uuid().generate(),
+      [props.id]
     )
 
     return (
@@ -33,7 +34,7 @@ export const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
         <ItemContainer>
           <Root ref={ ref } id={ id } { ...props }>
             <CheckboxPrimitive.Indicator asChild>
-              <CheckSquare weight="fill" size={ 22 } color="rgba(65, 53, 180, 1)" />
+              <CheckSquare data-testid={`${id}-checked-icon`} weight="fill" size={ 22 } color="rgba(65, 53, 180, 1)" />
             </CheckboxPrimitive.Indicator>
           </Root>
           <ItemLabel htmlFor={ id }>

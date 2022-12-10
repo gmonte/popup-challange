@@ -39,7 +39,7 @@ export function DialogRoot ({
   return (
     <Root open onOpenChange={ (openState) => escape && !openState && close() }>
       <TransitionFade open={ open }>
-        <Overlay>
+        <Overlay data-testid="dialog-overlay">
           <Box style={ style } $size={ size }>
             <DialogRootContext.Provider value={ { escape } }>
               {children}

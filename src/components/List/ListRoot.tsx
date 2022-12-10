@@ -8,7 +8,7 @@ export type ListRootProps = PropsWithChildren<{
 
 export function ListRoot ({ children, numberOfColumns = 1 }: ListRootProps) {
   return (
-    <Root $numberOfColumns={ numberOfColumns }>
+    <Root data-testid="list" $numberOfColumns={ numberOfColumns }>
       {children}
     </Root>
   )

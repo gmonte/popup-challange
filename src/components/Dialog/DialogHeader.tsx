@@ -30,7 +30,7 @@ export function DialogHeader ({
         {children}
       </HeaderContent>
       {(escape && !hideClose) && (
-        <Close asChild style={ { cursor: 'pointer' } }>
+        <Close data-testid="dialog-x" asChild style={ { cursor: 'pointer' } }>
           <X color={ style?.color ?? '#ffffff' } />
         </Close>
       )}

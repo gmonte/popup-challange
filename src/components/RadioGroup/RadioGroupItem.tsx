@@ -12,14 +12,15 @@ import {
 } from './styles'
 
 export interface RadioGroupItemProps {
+  id?: string
   value: string
   label: string
 }
 
-export function RadioGroupItem ({ value, label }: RadioGroupItemProps) {
+export function RadioGroupItem ({ id: propId, value, label }: RadioGroupItemProps) {
   const id = useMemo(
-    () => uuid().generate(),
-    []
+    () => propId || uuid().generate(),
+    [propId]
   )
 
   return (
@@ -27,7 +28,7 @@ export function RadioGroupItem ({ value, label }: RadioGroupItemProps) {
       <ItemContainer>
         <Item value={ value } id={ id }>
           <RadioGroupPrimitive.Indicator asChild>
-            <Circle weight="fill" size={ 22 } color="rgba(65, 53, 180, 1)" />
+            <Circle data-testid={`${id}-checked-icon`} weight="fill" size={ 22 } color="rgba(65, 53, 180, 1)" />
           </RadioGroupPrimitive.Indicator>
         </Item>
         <ItemLabel htmlFor={ id }>
