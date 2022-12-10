@@ -2,7 +2,6 @@ import {
   forwardRef,
   PropsWithChildren
 } from 'react'
-import { useSelector } from 'react-redux'
 
 import * as SelectPrimitive from '@radix-ui/react-select'
 import {
@@ -10,7 +9,7 @@ import {
   ArrowUp
 } from 'phosphor-react'
 
-import { selectPortalDivId } from '~/store/app/selectors'
+import { portalDivId } from '~/utils/dom'
 
 import { TextInput } from '../TextInput'
 import {
@@ -37,8 +36,6 @@ export const SelectRoot = forwardRef<HTMLButtonElement, SelectRootProps>(
     label,
     ...props
   }, ref) => {
-    const portalDivId = useSelector(selectPortalDivId)
-
     const hasValue = props.value !== undefined
 
     return (

@@ -1,10 +1,12 @@
 import { createGlobalStyle } from 'styled-components'
 
-export const GlobalStyle = createGlobalStyle<{
-  rootDivId: string
-  portalDivId: string
-}>`
-  #${ ({ rootDivId }) => rootDivId } {
+import {
+  rootDivId,
+  portalDivId
+} from './utils/dom'
+
+export const GlobalStyle = createGlobalStyle`
+  #${ rootDivId } {
     font-family: Open-Sans, Helvetica, Sans-Serif;
 
     & * {
@@ -12,7 +14,7 @@ export const GlobalStyle = createGlobalStyle<{
     }
   }
 
-  #${ ({ portalDivId }) => portalDivId } {
+  #${ portalDivId } {
     font-family: Open-Sans, Helvetica, Sans-Serif;
 
     & * {

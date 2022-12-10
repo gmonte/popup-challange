@@ -1,26 +1,14 @@
 import {
   useCallback,
-  useEffect,
-  useLayoutEffect
+  useEffect
 } from 'react'
 
 import { PopUp } from './containers/PopUp'
 import { useModal } from './hooks/useModal'
-import {
-  useAppDispatch,
-  useAppSelector
-} from './store'
-import { appsActions } from './store/app'
+import { useAppSelector } from './store'
 import { selectSubmitted } from './store/steps/selectors'
 
-export interface AppProps {
-  rootDivId: string
-  portalDivId: string
-}
-
-export function App ({ rootDivId, portalDivId }: AppProps) {
-  const dispatch = useAppDispatch()
-
+export function App () {
   const { createModal } = useModal()
 
   const submitted = useAppSelector(selectSubmitted)
@@ -46,20 +34,6 @@ export function App ({ rootDivId, portalDivId }: AppProps) {
       }
     },
     [handleOpenModal, submitted]
-  )
-
-  useLayoutEffect(
-    () => {
-      dispatch(appsActions.setRootDivId(rootDivId))
-    },
-    [dispatch, rootDivId]
-  )
-
-  useLayoutEffect(
-    () => {
-      dispatch(appsActions.setPortalDivId(portalDivId))
-    },
-    [dispatch, portalDivId]
   )
 
   return null
