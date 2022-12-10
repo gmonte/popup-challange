@@ -11,3 +11,5 @@ export const Form = styled.form.attrs({ onSubmit })`
   flex-direction: column;
   gap: 12px;
 `
+
+Form.displayName = 'Form'

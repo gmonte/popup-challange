@@ -26,7 +26,9 @@ export function TextInputRoot ({
   return (
     <Root>
       {(!!label || !!error) && (
-        <Label label={ label } error={ error } inputName={ name } />
+        <Label error={ error } inputName={ name }>
+          {label}
+        </Label>
       )}
       <RootContainer style={ style } $error={ !!error }>
         {children}

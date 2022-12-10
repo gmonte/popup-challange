@@ -5,21 +5,21 @@ import {
 } from './styles'
 
 export interface LabelProps {
-  label?: string
+  children?: string
   error?: string
   inputName?: string
 }
 
 export function Label ({
-  label,
+  children,
   error,
   inputName
 }: LabelProps) {
   return (
     <Container>
-      {label && (
+      {children && (
         <LabelStyled $error={ !!error } htmlFor={ inputName }>
-          {label}{':'}
+          {children}{':'}
         </LabelStyled>
       )}
       {error && (

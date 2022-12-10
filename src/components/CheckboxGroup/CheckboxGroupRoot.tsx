@@ -56,7 +56,9 @@ export const CheckboxGroupRoot = forwardRef<HTMLDivElement, CheckboxGroupRootPro
 
     return (
       <Container>
-        <Label label={ label } error={ error } inputName={ name } />
+        <Label error={ error } inputName={ name }>
+          {label}
+        </Label>
         <CheckboxGroupContext.Provider
           value={ {
             onOptionChange,

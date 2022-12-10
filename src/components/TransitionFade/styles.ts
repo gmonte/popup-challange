@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const TransitionFade = styled.div<{ $open: boolean }>`
+export const Fade = styled.div<{ $open: boolean }>`
   display: inline-block;
   opacity: ${ ({ $open }) => $open ? 1 : 0 };
   visibility: ${ ({ $open }) => $open ? 'visible' : 'hidden' };

@@ -21,7 +21,9 @@ export const RadioGroupRoot = forwardRef<HTMLDivElement, RadioGroupRootProps>(
   }, ref) => {
     return (
       <Container>
-        <Label label={ label } error={ error } inputName={ props.name } />
+        <Label error={ error } inputName={ props.name }>
+          {label}
+        </Label>
         <GroupRoot ref={ ref } { ...props } />
       </Container>
     )

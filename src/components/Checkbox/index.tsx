@@ -14,7 +14,7 @@ import {
   ItemLabel
 } from './styles'
 
-export type CheckboxProps = CheckboxPrimitive.CheckboxProps & {
+export type CheckboxProps = Omit<CheckboxPrimitive.CheckboxProps, 'asChild'> & {
   label: string
 }
 

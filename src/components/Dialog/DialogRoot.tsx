@@ -9,7 +9,7 @@ import { Root } from '@radix-ui/react-dialog'
 
 import { ModalProps } from '~/hooks/useModal'
 
-import { TransitionFade } from '../Transition'
+import { TransitionFade } from '../TransitionFade'
 import {
   Overlay,
   Box
@@ -38,7 +38,7 @@ export function DialogRoot ({
 }: DialogRootProps) {
   return (
     <Root open onOpenChange={ (openState) => escape && !openState && close() }>
-      <TransitionFade $open={ open }>
+      <TransitionFade open={ open }>
         <Overlay>
           <Box style={ style } $size={ size }>
             <DialogRootContext.Provider value={ { escape } }>

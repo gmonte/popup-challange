@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Button = styled.button`
+export const Default = styled.button`
   border-radius: 4px;
   padding: 8px 16px;
   color: #ffffff;
@@ -14,7 +14,7 @@ export const Button = styled.button`
   }
 `
 
-export const ButtonPrimary = styled(Button)`
+export const Primary = styled(Default)`
   background: linear-gradient(137.04deg, rgb(162, 52, 225) 33.4%, rgb(88, 68, 195) 82.8%);
   
   &:active {

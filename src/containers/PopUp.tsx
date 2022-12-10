@@ -7,10 +7,7 @@ import {
 import { FieldValues } from 'react-hook-form'
 
 import { FormRef } from '~/@types/Form'
-import {
-  Button,
-  ButtonPrimary
-} from '~/components/Button'
+import { Button } from '~/components/Button'
 import { Dialog } from '~/components/Dialog'
 import { ModalProps } from '~/hooks/useModal'
 import {
@@ -129,14 +126,14 @@ export function PopUp ({ open, close }: ModalProps) {
         } }
       >
         {hasNextStep && (
-          <ButtonPrimary onClick={ handleSubmitCurrentForm }>
+          <Button variant="primary" onClick={ handleSubmitCurrentForm }>
             Next
-          </ButtonPrimary>
+          </Button>
         )}
         {isLastStep && (
-          <ButtonPrimary onClick={ handleSubmit }>
+          <Button variant="primary" onClick={ handleSubmit }>
             Submit
-          </ButtonPrimary>
+          </Button>
         )}
         {hasPreviousStep && (
           <Button onClick={ handlePrevious }>
