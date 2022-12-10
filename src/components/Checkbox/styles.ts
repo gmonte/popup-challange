@@ -1,5 +1,5 @@
+import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
 import styled from 'styled-components'
-import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 
 export const ItemContainer = styled.div`
   display: flex;

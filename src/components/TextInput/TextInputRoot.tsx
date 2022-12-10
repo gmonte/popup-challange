@@ -1,15 +1,22 @@
-import { CSSProperties, PropsWithChildren } from 'react';
-import { Label } from '../Label';
-import { Root, RootContainer } from './styles'
+import {
+  CSSProperties,
+  PropsWithChildren
+} from 'react'
+
+import { Label } from '../Label'
+import {
+  Root,
+  RootContainer
+} from './styles'
 
 export type TextInputRootProps = PropsWithChildren<{
-  error?: string,
+  error?: string
   style?: CSSProperties
   label?: string
   name?: string
 }>
 
-export function TextInputRoot({
+export function TextInputRoot ({
   children,
   error,
   name,
@@ -18,14 +25,14 @@ export function TextInputRoot({
 }: TextInputRootProps) {
   return (
     <Root>
-      {(label || error) && (
-        <Label label={label} error={error} inputName={name} />
+      {(!!label || !!error) && (
+        <Label label={ label } error={ error } inputName={ name } />
       )}
-      <RootContainer style={style} $error={!!error}>
+      <RootContainer style={ style } $error={ !!error }>
         {children}
       </RootContainer>
     </Root>
-  );
+  )
 }
 
 TextInputRoot.displayName = 'TextInput.Root'

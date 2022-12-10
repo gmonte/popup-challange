@@ -1,10 +1,18 @@
-import * as SelectPrimitive from '@radix-ui/react-select'
-import { ArrowDown, ArrowUp, X } from 'phosphor-react'
-import { forwardRef, PropsWithChildren } from 'react'
+import {
+  forwardRef,
+  PropsWithChildren
+} from 'react'
 import { useSelector } from 'react-redux'
-import { selectPortalDivId } from '~/store/app/selectors'
-import { TextInput } from '../TextInput'
 
+import * as SelectPrimitive from '@radix-ui/react-select'
+import {
+  ArrowDown,
+  ArrowUp
+} from 'phosphor-react'
+
+import { selectPortalDivId } from '~/store/app/selectors'
+
+import { TextInput } from '../TextInput'
 import {
   Container,
   Trigger,
@@ -35,13 +43,14 @@ export const SelectRoot = forwardRef<HTMLButtonElement, SelectRootProps>(
 
     return (
       <Container>
-        <SelectPrimitive.Root {...props}>
-          <Trigger ref={ref}>
-            
-            <TextInput.Root error={error} label={label} name={props.name}>
+        <SelectPrimitive.Root { ...props }>
+          <Trigger ref={ ref }>
+
+            <TextInput.Root error={ error } label={ label } name={ props.name }>
               <SelectedValueContainer>
                 <SelectPrimitive.Value asChild>
-                  <Value $hasValue={hasValue}>
+                  <Value $hasValue={ hasValue }>
+                    {/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
                     {props.value || placeholder}
                   </Value>
                 </SelectPrimitive.Value>
@@ -55,7 +64,7 @@ export const SelectRoot = forwardRef<HTMLButtonElement, SelectRootProps>(
 
           </Trigger>
 
-          <SelectPrimitive.Portal container={document.getElementById(portalDivId)}>
+          <SelectPrimitive.Portal container={ document.getElementById(portalDivId) }>
             <Content>
               <ScrollUpButton>
                 <ArrowUp color="white" weight="bold" />

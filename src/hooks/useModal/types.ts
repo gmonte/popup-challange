@@ -8,7 +8,6 @@ export interface Modal<T = any> {
   open?: boolean
 }
 
-
 export interface OpenModalOptions {
   id: string
 }

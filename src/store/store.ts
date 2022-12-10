@@ -9,7 +9,7 @@ const devMode = true // import.meta.env.MODE === 'development'
 export const store = configureStore({
   reducer: reducers,
   devTools: devMode,
-  middleware(getDefaultMiddleware) {
+  middleware (getDefaultMiddleware) {
     const middlewares = getDefaultMiddleware({ serializableCheck: false })
 
     if (devMode) {

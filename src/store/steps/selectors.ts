@@ -1,5 +1,6 @@
-import { RootState } from '../store'
 import { AllQuestions } from '~/@types/Steps'
+
+import { RootState } from '../store'
 
 export const selectSteps = (state: RootState) => state.steps.steps
 
@@ -39,11 +40,12 @@ export const selectSubmitted = (state: RootState) => state.steps.submitted
 
 export const selectAllQuestions = (state: RootState) => {
   const steps = selectSteps(state)
-  return steps.reduce(
+  return steps.reduce<AllQuestions>(
     (acc, step) => ({
       ...acc,
       ...step?.questions
     }),
-    {} as AllQuestions
+    // @ts-expect-error
+    {}
   )
 }

@@ -8,7 +8,7 @@ export const Container = styled.div`
 `
 
 export const LabelStyled = styled.label<{ $error: boolean }>`
-  color: ${({ $error }) => $error ? '#f8b4b4' : '#f2f3e6'};
+  color: ${ ({ $error }) => $error ? '#f8b4b4' : '#f2f3e6' };
   font-size: 1rem;
 `
 

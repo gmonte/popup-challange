@@ -1,4 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import {
+  createSlice,
+  PayloadAction
+} from '@reduxjs/toolkit'
+
 import { ReducerState } from '~/@types/App'
 
 const initialState: ReducerState = {
@@ -10,10 +14,10 @@ export const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    setRootDivId(state, { payload }: PayloadAction<string>) {
+    setRootDivId (state, { payload }: PayloadAction<string>) {
       state.rootDivId = payload
     },
-    setPortalDivId(state, { payload }: PayloadAction<string>) {
+    setPortalDivId (state, { payload }: PayloadAction<string>) {
       state.portalDivId = payload
     }
   }

@@ -1,16 +1,24 @@
-import { useCallback, useEffect, useLayoutEffect } from "react"
-import { PopUp } from "./containers/PopUp"
-import { useModal } from "./hooks/useModal"
-import { useAppDispatch, useAppSelector } from "./store"
-import { appsActions } from "./store/app"
-import { selectSubmitted } from "./store/steps/selectors"
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect
+} from 'react'
 
-export type AppProps = {
+import { PopUp } from './containers/PopUp'
+import { useModal } from './hooks/useModal'
+import {
+  useAppDispatch,
+  useAppSelector
+} from './store'
+import { appsActions } from './store/app'
+import { selectSubmitted } from './store/steps/selectors'
+
+export interface AppProps {
   rootDivId: string
   portalDivId: string
 }
 
-export function App({ rootDivId, portalDivId }: AppProps) {
+export function App ({ rootDivId, portalDivId }: AppProps) {
   const dispatch = useAppDispatch()
 
   const { createModal } = useModal()
@@ -24,7 +32,7 @@ export function App({ rootDivId, portalDivId }: AppProps) {
         Component: PopUp
       })
     },
-    []
+    [createModal]
   )
 
   useEffect(
@@ -44,14 +52,14 @@ export function App({ rootDivId, portalDivId }: AppProps) {
     () => {
       dispatch(appsActions.setRootDivId(rootDivId))
     },
-    [rootDivId]
+    [dispatch, rootDivId]
   )
 
   useLayoutEffect(
     () => {
       dispatch(appsActions.setPortalDivId(portalDivId))
     },
-    [portalDivId]
+    [dispatch, portalDivId]
   )
 
   return null

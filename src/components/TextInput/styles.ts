@@ -1,5 +1,5 @@
-import styled from 'styled-components'
 import { Slot } from '@radix-ui/react-slot'
+import styled from 'styled-components'
 
 export const Root = styled.div`
   color: #f2f3e6;
@@ -22,7 +22,7 @@ export const RootContainer = styled.div<{ $error: boolean }>`
   transition-duration: 150ms;
   min-height: 24px;
 
-  ${({ $error }) => $error ? 'box-shadow: 0 0 0 2px #f8b4b4 !important;' : ''}
+  ${ ({ $error }) => $error ? 'box-shadow: 0 0 0 2px #f8b4b4 !important;' : '' }
   
   &:focus-within {
     box-shadow: 0 0 0 2px rgb(67, 55, 124);

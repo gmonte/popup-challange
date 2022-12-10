@@ -1,14 +1,27 @@
-import { forwardRef, useCallback, useImperativeHandle } from "react"
-import { useForm } from "react-hook-form"
+import {
+  forwardRef,
+  useCallback,
+  useImperativeHandle
+} from 'react'
+import { useForm } from 'react-hook-form'
+
 import { yupResolver } from '@hookform/resolvers/yup'
+import {
+  EnvelopeSimple,
+  User
+} from 'phosphor-react'
 import * as yup from 'yup'
-import { FormRef, FormProps, FormValuesByQuestions } from "~/@types/Form"
-import { useAppSelector } from "~/store"
-import { selectCurrentStep } from "~/store/steps/selectors"
-import { IdentityQuestions } from "~/@types/Steps"
-import { TextInput } from "~/components/TextInput"
-import { EnvelopeSimple, User } from "phosphor-react"
-import { Form } from "~/components/Form"
+
+import {
+  FormRef,
+  FormProps,
+  FormValuesByQuestions
+} from '~/@types/Form'
+import { IdentityQuestions } from '~/@types/Steps'
+import { Form } from '~/components/Form'
+import { TextInput } from '~/components/TextInput'
+import { useAppSelector } from '~/store'
+import { selectCurrentStep } from '~/store/steps/selectors'
 
 type FormValues = FormValuesByQuestions<IdentityQuestions>
 
@@ -27,13 +40,11 @@ export const IdentityForm = forwardRef<FormRef, FormProps>(
       getValues,
       handleSubmit,
       formState: { errors }
-    } = useForm<FormValues>({
-      resolver: yupResolver(schema)
-    })
+    } = useForm<FormValues>({ resolver: yupResolver(schema) })
 
     const submit = useCallback(
-      () => handleSubmit(onSubmit)(),
-      [handleSubmit]
+      async () => await handleSubmit(onSubmit)(),
+      [handleSubmit, onSubmit]
     )
 
     useImperativeHandle(ref, () => ({
@@ -47,31 +58,33 @@ export const IdentityForm = forwardRef<FormRef, FormProps>(
 
     return (
       <Form>
-        <TextInput.Root label={questions.name.description}>
+        <TextInput.Root label={ questions.name.description }>
           <TextInput.Icon>
             <User />
           </TextInput.Icon>
           <TextInput.Input
-            defaultValue={questions.name.answer}
-            placeholder={questions.name.description}
-            {...register("name")}
+            defaultValue={ questions.name.answer }
+            placeholder={ questions.name.description }
+            { ...register('name') }
           />
         </TextInput.Root>
 
         <TextInput.Root
-          label={questions.email.description}
-          error={errors.email?.message}
+          label={ questions.email.description }
+          error={ errors.email?.message }
         >
           <TextInput.Icon>
             <EnvelopeSimple />
           </TextInput.Icon>
           <TextInput.Input
-            defaultValue={questions.email.answer}
-            placeholder={questions.email.description}
-            {...register("email")}
+            defaultValue={ questions.email.answer }
+            placeholder={ questions.email.description }
+            { ...register('email') }
           />
         </TextInput.Root>
       </Form>
     )
   }
 )
+
+IdentityForm.displayName = 'IdentityForm'

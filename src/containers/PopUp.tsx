@@ -1,13 +1,31 @@
-import { useCallback, useEffect, useMemo, useRef } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef
+} from 'react'
 import { FieldValues } from 'react-hook-form'
-import { FormRef } from '~/@types/Form'
-import { Button, ButtonPrimary } from '~/components/Button'
 
+import { FormRef } from '~/@types/Form'
+import {
+  Button,
+  ButtonPrimary
+} from '~/components/Button'
 import { Dialog } from '~/components/Dialog'
 import { ModalProps } from '~/hooks/useModal'
-import { useAppDispatch, useAppSelector } from '~/store'
+import {
+  useAppDispatch,
+  useAppSelector
+} from '~/store'
 import { stepsActions } from '~/store/steps'
-import { selectCurrentStep, selectSubmitted, selectHasNextStep, selectHasPreviousStep, selectIsLastStep } from '~/store/steps/selectors'
+import {
+  selectCurrentStep,
+  selectSubmitted,
+  selectHasNextStep,
+  selectHasPreviousStep,
+  selectIsLastStep
+} from '~/store/steps/selectors'
+
 import { DetailsForm } from './DetailsForm'
 import { FavoritesForm } from './FavoritesForm'
 import { IdentityForm } from './IdentityForm'
@@ -43,39 +61,42 @@ export function PopUp ({ open, close }: ModalProps) {
     () => currentFormRef.current?.submit(),
     []
   )
-  
+
   const handleSubmit = useCallback(
     () => {
       dispatch(stepsActions.submit())
     },
-    []
+    [dispatch]
   )
 
   const Content = useMemo(
     () => {
       switch (currentStep?.id) {
-        case 'identity': return () => (
-          <IdentityForm
-            ref={currentFormRef}
-            onSubmit={handleNext}
+        // eslint-disable-next-line react/display-name
+        case 'identity': return function () {
+          return <IdentityForm
+            ref={ currentFormRef }
+            onSubmit={ handleNext }
           />
-        )
-        case 'details': return () => (
-          <DetailsForm
-            ref={currentFormRef}
-            onSubmit={handleNext}
+        }
+        // eslint-disable-next-line react/display-name
+        case 'details': return function () {
+          return <DetailsForm
+            ref={ currentFormRef }
+            onSubmit={ handleNext }
           />
-        )
-        case 'favorites': return () => (
-          <FavoritesForm
-            ref={currentFormRef}
-            onSubmit={handleNext}
+        }
+        // eslint-disable-next-line react/display-name
+        case 'favorites': return function () {
+          return <FavoritesForm
+            ref={ currentFormRef }
+            onSubmit={ handleNext }
           />
-        )
+        }
         default: return SummaryTable
       }
     },
-    [currentStep]
+    [currentStep?.id, handleNext]
   )
 
   useEffect(
@@ -89,9 +110,9 @@ export function PopUp ({ open, close }: ModalProps) {
 
   return (
     <Dialog.Root
-      open={open}
-      close={close}
-      escape={false}
+      open={ open }
+      close={ close }
+      escape={ false }
     >
       <Dialog.Header>
         {currentStep?.description}
@@ -102,23 +123,23 @@ export function PopUp ({ open, close }: ModalProps) {
       </Dialog.Content>
 
       <Dialog.Footer
-        style={{
+        style={ {
           flexDirection: 'row-reverse',
           justifyContent: 'space-between'
-        }}
+        } }
       >
         {hasNextStep && (
-          <ButtonPrimary onClick={handleSubmitCurrentForm}>
+          <ButtonPrimary onClick={ handleSubmitCurrentForm }>
             Next
           </ButtonPrimary>
         )}
         {isLastStep && (
-          <ButtonPrimary onClick={handleSubmit}>
+          <ButtonPrimary onClick={ handleSubmit }>
             Submit
           </ButtonPrimary>
         )}
         {hasPreviousStep && (
-          <Button onClick={handlePrevious}>
+          <Button onClick={ handlePrevious }>
             Previous
           </Button>
         )}

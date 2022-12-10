@@ -1,5 +1,5 @@
+import * as RadioGroupPrimitive from '@radix-ui/react-radio-group'
 import styled from 'styled-components'
-import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 
 export const Container = styled.div`
   display: flex;

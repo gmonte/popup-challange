@@ -1,17 +1,18 @@
-import { useCallback, useMemo } from 'react'
+import {
+  useCallback,
+  useMemo
+} from 'react'
+
 import { Checkbox } from '../Checkbox'
 import { useCheckboxGroupContext } from './CheckboxGroupRoot'
 
-export type CheckboxGroupItemProps = {
-  label: string,
+export interface CheckboxGroupItemProps {
+  label: string
   value: string
 }
 
-export function CheckboxGroupItem({ label, value }: CheckboxGroupItemProps) {
-  const {
-    groupValue,
-    onOptionChange
-  } = useCheckboxGroupContext()
+export function CheckboxGroupItem ({ label, value }: CheckboxGroupItemProps) {
+  const { groupValue, onOptionChange } = useCheckboxGroupContext()
 
   const checked = useMemo(
     () => groupValue?.includes?.(value),
@@ -25,9 +26,9 @@ export function CheckboxGroupItem({ label, value }: CheckboxGroupItemProps) {
 
   return (
     <Checkbox
-      label={label}
-      checked={checked}
-      onCheckedChange={handleCheckedChange}
+      label={ label }
+      checked={ checked }
+      onCheckedChange={ handleCheckedChange }
     />
   )
 }

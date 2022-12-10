@@ -1,14 +1,21 @@
-import { Root } from '@radix-ui/react-dialog'
-import { createContext, CSSProperties, PropsWithChildren, useContext } from 'react'
-import { ModalProps } from '~/hooks/useModal'
-import { TransitionFade } from '../Transition'
+import {
+  createContext,
+  CSSProperties,
+  PropsWithChildren,
+  useContext
+} from 'react'
 
+import { Root } from '@radix-ui/react-dialog'
+
+import { ModalProps } from '~/hooks/useModal'
+
+import { TransitionFade } from '../Transition'
 import {
   Overlay,
   Box
 } from './styles'
 
-type DialogRootContextProps = {
+interface DialogRootContextProps {
   escape?: boolean
 }
 
@@ -17,11 +24,11 @@ const DialogRootContext = createContext<DialogRootContextProps>({} as DialogRoot
 export const useDialogRoot = () => useContext(DialogRootContext)
 
 export type DialogRootProps = PropsWithChildren<Omit<ModalProps, 'id'> & DialogRootContextProps & {
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl',
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   style?: CSSProperties
 }>
 
-export function DialogRoot({
+export function DialogRoot ({
   open,
   children,
   close,
@@ -30,10 +37,10 @@ export function DialogRoot({
   escape = true
 }: DialogRootProps) {
   return (
-    <Root open onOpenChange={(openState) => escape && !openState && close()}>
-      <TransitionFade $open={open}>
+    <Root open onOpenChange={ (openState) => escape && !openState && close() }>
+      <TransitionFade $open={ open }>
         <Overlay>
-          <Box style={ style } $size={size}>
+          <Box style={ style } $size={ size }>
             <DialogRootContext.Provider value={ { escape } }>
               {children}
             </DialogRootContext.Provider>

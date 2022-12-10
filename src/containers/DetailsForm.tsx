@@ -1,14 +1,28 @@
-import { forwardRef, useCallback, useImperativeHandle, useMemo } from "react";
-import { Controller, useForm } from "react-hook-form";
+import {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useMemo
+} from 'react'
+import {
+  Controller,
+  useForm
+} from 'react-hook-form'
+
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { FormRef, FormProps, FormValuesByQuestions } from "~/@types/Form";
-import { useAppSelector } from "~/store";
-import { selectCurrentStep } from "~/store/steps/selectors";
-import { DetailsQuestions } from "~/@types/Steps";
-import { Form } from "~/components/Form";
-import { Select } from "~/components/Select";
-import { RadioGroup } from "~/components/RadioGroup";
+
+import {
+  FormRef,
+  FormProps,
+  FormValuesByQuestions
+} from '~/@types/Form'
+import { DetailsQuestions } from '~/@types/Steps'
+import { Form } from '~/components/Form'
+import { RadioGroup } from '~/components/RadioGroup'
+import { Select } from '~/components/Select'
+import { useAppSelector } from '~/store'
+import { selectCurrentStep } from '~/store/steps/selectors'
 
 type FormValues = FormValuesByQuestions<DetailsQuestions>
 
@@ -26,20 +40,20 @@ export const DetailsForm = forwardRef<FormRef, FormProps>(
       control,
       getValues,
       handleSubmit,
-      formState: { errors },
+      formState: { errors }
     } = useForm<FormValues>({
       resolver: yupResolver(schema),
       defaultValues: {
         age: questions.age.answer,
-        gender: questions.gender.answer,
+        gender: questions.gender.answer
       }
     })
 
     const ageOptions = useMemo(
       () => questions.age.options?.map?.((option) => (
         <Select.Option
-          key={option.value}
-          value={option.value}
+          key={ option.value }
+          value={ option.value }
         >
           {option.label}
         </Select.Option>
@@ -50,17 +64,17 @@ export const DetailsForm = forwardRef<FormRef, FormProps>(
     const genderOptions = useMemo(
       () => questions.gender.options?.map?.((option) => (
         <RadioGroup.Item
-          key={option.value}
-          value={option.value}
-          label={option.label}
+          key={ option.value }
+          value={ option.value }
+          label={ option.label }
         />
       )),
       [questions.gender.options]
     )
 
     const submit = useCallback(
-      () => handleSubmit(onSubmit)(),
-      [handleSubmit]
+      async () => await handleSubmit(onSubmit)(),
+      [handleSubmit, onSubmit]
     )
 
     useImperativeHandle(ref, () => ({
@@ -76,37 +90,51 @@ export const DetailsForm = forwardRef<FormRef, FormProps>(
       <Form>
         <Controller
           name="age"
-          control={control}
-          render={({ field: { onChange, value, ...field } }) => (
+          control={ control }
+          render={ ({
+            field: {
+              onChange,
+              value,
+              ...field
+            }
+          }) => (
             <Select.Root
-              label={questions.age.description}
-              placeholder={questions.age.description}
-              onValueChange={onChange}
-              error={errors.age?.message}
-              value={value}
-              {...field}
+              label={ questions.age.description }
+              placeholder={ questions.age.description }
+              onValueChange={ onChange }
+              error={ errors.age?.message }
+              value={ value }
+              { ...field }
             >
               {ageOptions}
             </Select.Root>
-          )}
+          ) }
         />
 
         <Controller
           name="gender"
-          control={control}
-          render={({ field: { onChange, value, ...field } }) => (
+          control={ control }
+          render={ ({
+            field: {
+              onChange,
+              value,
+              ...field
+            }
+          }) => (
             <RadioGroup.Root
-              label={questions.gender.description}
-              error={errors.gender?.message}
-              onValueChange={onChange}
-              value={value}
-              {...field}
+              label={ questions.gender.description }
+              error={ errors.gender?.message }
+              onValueChange={ onChange }
+              value={ value }
+              { ...field }
             >
               {genderOptions}
             </RadioGroup.Root>
-          )}
+          ) }
         />
       </Form>
-    );
+    )
   }
 )
+
+DetailsForm.displayName = 'DetailsForm'

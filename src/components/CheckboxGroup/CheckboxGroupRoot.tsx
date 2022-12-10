@@ -1,17 +1,28 @@
-import { forwardRef, PropsWithChildren, useCallback, useContext, createContext, ReactNode } from 'react';
-import { Label } from '../Label';
-import { Container, GroupRoot } from './styles';
+import {
+  forwardRef,
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  createContext,
+  ReactNode
+} from 'react'
+
+import { Label } from '../Label'
+import {
+  Container,
+  GroupRoot
+} from './styles'
 
 export type CheckboxGroupRootProps = PropsWithChildren<{
   label?: string
   error?: string
-  name?: string,
-  value?: string[],
-  onValueChange?: (value: string[]) => void,
+  name?: string
+  value?: string[]
+  onValueChange?: (value: string[]) => void
   children?: ReactNode | ReactNode[]
 }>
 
-export type CheckboxGroupContextProps = {
+export interface CheckboxGroupContextProps {
   onOptionChange: (optionValue: string, optionChecked: boolean) => void
   groupValue?: string[]
 }
@@ -45,14 +56,14 @@ export const CheckboxGroupRoot = forwardRef<HTMLDivElement, CheckboxGroupRootPro
 
     return (
       <Container>
-        <Label label={label} error={error} inputName={name} />
+        <Label label={ label } error={ error } inputName={ name } />
         <CheckboxGroupContext.Provider
-          value={{
+          value={ {
             onOptionChange,
             groupValue: value
-          }}
+          } }
         >
-          <GroupRoot ref={ref}>
+          <GroupRoot ref={ ref }>
             {children}
           </GroupRoot>
         </CheckboxGroupContext.Provider>

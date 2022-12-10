@@ -14,13 +14,13 @@ export const Overlay = styled(DialogPrimitive.Overlay)`
 export const Box = styled(DialogPrimitive.Content)<{ $size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' }>`
   position: fixed;
   z-index: 50;
-  max-width: ${({ $size }) => {
+  max-width: ${ ({ $size }) => {
     if ($size === 'xs') return '15rem'
     if ($size === 'sm') return '30rem'
     if ($size === 'md') return '45rem'
     if ($size === 'lg') return '60rem'
     return '75rem' // xl
-  }};
+  } };
   border-radius: 0.5rem;
   overflow: hidden;
   padding: 1rem;
@@ -37,7 +37,7 @@ export const Box = styled(DialogPrimitive.Content)<{ $size: 'xs' | 'sm' | 'md' |
 export const Header = styled.div`
   padding: 12px 12px 12px 18px;
   display: flex;
-  color: ${({ style }) => style?.color || '#fff'};
+  color: ${ ({ style }) => style?.color ?? '#fff' };
   background: linear-gradient(90deg, rgba(65, 53, 180, 0.9) 0%, rgba(44, 26, 69, 0.5) 100%);
   backdrop-filter: blur(5px);
 `

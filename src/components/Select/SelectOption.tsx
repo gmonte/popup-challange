@@ -1,12 +1,20 @@
+import { forwardRef } from 'react'
+
 import * as SelectPrimitive from '@radix-ui/react-select'
 import { Check } from 'phosphor-react'
-import { forwardRef } from 'react'
-import { OptionContainer, OptionTextContainer } from './styles'
+
+import {
+  OptionContainer,
+  OptionTextContainer
+} from './styles'
 
 export type SelectOptionProps = SelectPrimitive.SelectItemProps
 
 export const SelectOption = forwardRef<HTMLDivElement, SelectOptionProps>(
-  ({ children, ...props }, ref) => {
+  ({
+    children,
+    ...props
+  }, ref) => {
     return (
       <OptionContainer { ...props } ref={ ref }>
         <OptionTextContainer>

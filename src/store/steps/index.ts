@@ -1,7 +1,15 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { FieldValues } from 'react-hook-form'
 
-import { AllQuestions, ReducerState, Step } from '~/@types/Steps'
+import {
+  createSlice,
+  PayloadAction
+} from '@reduxjs/toolkit'
+
+import {
+  AllQuestions,
+  ReducerState,
+  Step
+} from '~/@types/Steps'
 
 const initialSteps: Step[] = [
   {
@@ -34,11 +42,26 @@ const initialSteps: Step[] = [
         description: 'Gender',
         answer: undefined,
         options: [
-          { label: 'Woman', value: 'woman' },
-          { label: 'Man', value: 'man' },
-          { label: 'Transgender', value: 'transgender' },
-          { label: 'Non-binary / Non-confirming', value: 'non-binary' },
-          { label: 'Prefer not to respond', value: 'no-respond' },
+          {
+            label: 'Woman',
+            value: 'woman'
+          },
+          {
+            label: 'Man',
+            value: 'man'
+          },
+          {
+            label: 'Transgender',
+            value: 'transgender'
+          },
+          {
+            label: 'Non-binary / Non-confirming',
+            value: 'non-binary'
+          },
+          {
+            label: 'Prefer not to respond',
+            value: 'no-respond'
+          }
         ]
       }
     }
@@ -55,12 +78,30 @@ const initialSteps: Step[] = [
         description: 'Favorite Colors',
         answer: undefined,
         options: [
-          { label: 'Black', value: 'black' },
-          { label: 'Blue', value: 'blue' },
-          { label: 'Green', value: 'green' },
-          { label: 'Red', value: 'red' },
-          { label: 'Yellow', value: 'yellow' },
-          { label: 'White', value: 'white' },
+          {
+            label: 'Black',
+            value: 'black'
+          },
+          {
+            label: 'Blue',
+            value: 'blue'
+          },
+          {
+            label: 'Green',
+            value: 'green'
+          },
+          {
+            label: 'Red',
+            value: 'red'
+          },
+          {
+            label: 'Yellow',
+            value: 'yellow'
+          },
+          {
+            label: 'White',
+            value: 'white'
+          }
         ]
       }
     }
@@ -77,7 +118,7 @@ const initialState: ReducerState = {
   submitted: false
 }
 
-function updateQuestionsByStepIndex(
+function updateQuestionsByStepIndex (
   state: ReducerState,
   stepIndex: number,
   fieldValues?: FieldValues
@@ -99,7 +140,7 @@ export const stepsSlice = createSlice({
   name: 'steps',
   initialState,
   reducers: {
-    next(state, { payload }: PayloadAction<FieldValues>) {
+    next (state, { payload }: PayloadAction<FieldValues>) {
       const currentStepIndex = state.steps.findIndex(step => step.id === state.currentStepId)
 
       state = updateQuestionsByStepIndex(state, currentStepIndex, payload)
@@ -110,7 +151,7 @@ export const stepsSlice = createSlice({
         state.currentStepId = nextStep.id
       }
     },
-    previous(state, { payload }: PayloadAction<FieldValues | undefined>) {
+    previous (state, { payload }: PayloadAction<FieldValues | undefined>) {
       const currentStepIndex = state.steps.findIndex(step => step.id === state.currentStepId)
 
       state = updateQuestionsByStepIndex(state, currentStepIndex, payload)
@@ -121,7 +162,7 @@ export const stepsSlice = createSlice({
         state.currentStepId = previousStep.id
       }
     },
-    submit(state) {
+    submit (state) {
       state.submitted = true
     }
   }

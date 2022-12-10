@@ -1,10 +1,14 @@
 import { combineReducers } from 'redux'
-import { persistReducer, createMigrate, MigrationManifest, PersistedState } from 'redux-persist'
+import {
+  persistReducer,
+  createMigrate,
+  MigrationManifest,
+  PersistedState
+} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-import { stepsSlice } from './steps'
 import { appSlice } from './app'
-import { RootState } from './store'
+import { stepsSlice } from './steps'
 
 const migrations: MigrationManifest = {
   0: state => state,

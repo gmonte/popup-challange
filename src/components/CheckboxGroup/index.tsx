@@ -1,5 +1,5 @@
-import { CheckboxGroupRoot } from "./CheckboxGroupRoot";
-import { CheckboxGroupItem } from "./CheckboxGroupItem";
+import { CheckboxGroupItem } from './CheckboxGroupItem'
+import { CheckboxGroupRoot } from './CheckboxGroupRoot'
 
 export const CheckboxGroup = {
   Root: CheckboxGroupRoot,

@@ -1,7 +1,7 @@
-import { DialogRoot } from './DialogRoot'
 import { DialogContent } from './DialogContent'
-import { DialogHeader } from './DialogHeader'
 import { DialogFooter } from './DialogFooter'
+import { DialogHeader } from './DialogHeader'
+import { DialogRoot } from './DialogRoot'
 
 export const Dialog = {
   Root: DialogRoot,
